@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { version } = require("./package.json");
 
-module.exports = nextConfig
+const nextConfig = {
+  sassOptions: {},
+  env: {
+    version,
+  },
+};
+
+module.exports = nextConfig;

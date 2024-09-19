@@ -1,0 +1,34 @@
+.LeagueBasic
+  h4
+    margin: 0 0 5px
+
+  &__list
+    font-size: var(--font-size-sm)
+
+  li
+    padding: 2px 5px
+
+  &__list
+    li:nth-child(even)
+      background: rgba(white, 0.06)
+
+  &__team
+    display: flex
+
+  &__team:nth-child(1),
+  &__team:nth-child(2),
+  &__team:nth-child(3)
+    .LeagueBasic__team-pos
+      color: var(--color-attention) !important
+      font-weight: bold
+
+  &__team-pos
+    color: var(--color-text-muted)
+
+  &__team-points
+    color: var(--color-text-muted)
+    font-weight: bold
+
+  &__team-name
+    flex-grow: 1
+    margin: 0 10px
