@@ -18,7 +18,9 @@ export default function Page() {
           {userTeams.map((team) => (
             <li key={team.id} style={{ padding: "1em" }}>
               <Link href={`/teams/${team.id}`}>
-                <strong>{team.name}</strong>
+                <strong>
+                  {team.id} - {team.name}
+                </strong>
               </Link>
               <br />
               {team.fixtures?.[0].time} - {team.fixtures?.[0].vs}

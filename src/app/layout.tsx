@@ -1,6 +1,6 @@
 "use client";
 // import type { Metadata } from "next";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, child, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
 import { FbCache } from "@/app/_firebase/types";
 
@@ -10,6 +10,8 @@ import Header from "@/app/components/Header";
 import { useEffect } from "react";
 import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
+import { snapshot } from "node:test";
+import { TeamsData } from "@/app/teams/types";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -28,32 +30,85 @@ export default function RootLayout({
     null
   );
 
+  const [userTeams, setUserTeams] = useLocalStorage<TeamsData>("userTeams", []);
+
   useEffect(() => {
-    const config = ref(database, "config");
+    const configRef = ref(database, "config");
 
-    console.log(fbCache);
-
-    onValue(config, (snapshot) => {
-      // console.log(fbCache)
+    onValue(configRef, (snapshot) => {
       const latestCache: FbCache = snapshot.val();
 
-      // if (fbCache === null) {
-      //   setFbCache(latestCache);
-      // }
+      // fresh start
+      if (fbCache === null) {
+        setFbCache(latestCache);
+        return;
+      }
 
-      console.log(latestCache);
+      for (const [key, value] of Object.entries(latestCache)) {
+        if (fbCache?.[key as keyof FbCache] !== value) {
+          switch (key) {
+            case "teamDataHash":
+              console.log(key);
+              console.log(fbCache?.[key as keyof FbCache]);
+              console.log(value);
 
-      // if (JSON.stringify(fbCache) !== JSON.stringify(latestCache)) {
-      // setFbCache(latestCache);
-      // console.log(latestCache);
-      // }
-      // updateStarCount(postElement, data);
+              console.log("bust teams");
+              // let userTeams = localStorage.getItem("userTeams");
+              // if (userTeams) {
+              //   userTeams = JSON.parse(userTeams);
+
+              //   for (let t of userTeams) {
+              //     console.log(t);
+
+              //     // get(teamsDataRef, `team-data/${t.id}`).then((snapshot) => {
+              //     //   if (snapshot.exists()) {
+              //     //     console.log(snapshot.val());
+              //     //   } else {
+              //     //     console.log("No data available");
+              //     //   }
+              //     // });
+              //     // fb()
+              //     //   .teamData(t.id)
+              //     //   .once('value', snapshot => {
+              //     //     if (snapshot.val()) {
+              //     //       snapshot.val().fixturesHash !== t.fixturesHash
+              //     //         ? dispatch(REFRESH_SELECTED_TEAM(snapshot.val()))
+              //     //         : console.log(`no updates for team ${t.id}`)
+              //     //     } else {
+              //     //       console.log('no team data')
+              //     //     }
+              //     //   })
+              //   }
+              // }
+
+              break;
+            default:
+          }
+        }
+        // console.log(`${key}: ${value}`);
+      }
     });
-  }, [fbCache]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (userTeams && userTeams.length > 0) {
+  //     userTeams.forEach((team, idx) => {
+  //       const teamsDataRef = ref(database, `team-data/${team.id}`);
+  //       onValue(teamsDataRef, (snapshot) => {
+  //         if (snapshot.exists()) {
+  //           const data = snapshot.val();
+  //           // console.log(data);
+  //           setUserTeams(userTeams.with(idx, data));
+  //         } else {
+  //           console.log("No data available");
+  //         }
+  //       });
+  //     });
+  //   }
+  // }, []);
 
   return (
     <html lang="en">
-      {/* <body className={inter.className}> */}
       <body>
         <Header />
         {/* :laughycryface: */}
