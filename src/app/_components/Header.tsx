@@ -4,6 +4,7 @@ export default function Header() {
   return (
     <header>
       <Link href="/">Home</Link>
+      <Link href="/settings">Settings</Link>
     </header>
   );
 }

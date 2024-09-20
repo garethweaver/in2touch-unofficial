@@ -1,17 +1,13 @@
-import { TeamData, TeamDataBasic, TeamsData } from "@/app/teams/types";
+import { Team, Teams, TeamsBasic } from "@/app/teams/types";
 import { useEffect } from "react";
-import { ref, onValue, child, get } from "firebase/database";
+import { ref, onValue, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
-import { FbCache } from "../_firebase/types";
+import { FbCache } from "@/app/_firebase/types";
 import { useLocalStorage } from "usehooks-ts";
 
-export const getFromLocalStorage = (key: string, setDefault?: any) => {
-  return localStorage.getItem(key)
-    ? JSON.parse(localStorage.getItem(key) ?? "")
-    : setDefault;
-};
+type sortItem = { nameLowercased: string };
 
-export const sortTeamsAlpha = (a: TeamDataBasic, b: TeamDataBasic) => {
+export const sortNameLowerByAlpha = (a: sortItem, b: sortItem): number => {
   if (a.nameLowercased < b.nameLowercased) {
     return -1;
   }
@@ -21,27 +17,28 @@ export const sortTeamsAlpha = (a: TeamDataBasic, b: TeamDataBasic) => {
   return 0;
 };
 
-const fetchData = (team: TeamData): Promise<TeamData> => {
-  return new Promise<TeamData>((resolve, reject) => {
-    const teamsDataRef = ref(database, `team-data/${team.id}`);
-    get(teamsDataRef)
+const fetchData = (team: Team): Promise<Team> => {
+  return new Promise<Team>((resolve, reject) => {
+    const teamsRef = ref(database, `team-data/${team.id}`);
+    get(teamsRef)
       .then((snapshot) => {
         snapshot.exists() ? resolve(snapshot.val()) : reject();
       })
       .catch(() => reject());
-  }).catch((error) => {
+  }).catch(() => {
     console.error(`Error fetching ${team.id}`);
     return team;
   });
 };
 
-export const compareAndUpateCache = () => {
+export const useCompareAndUpateCache = () => {
   const [fbCache, setFbCache] = useLocalStorage<FbCache | null>(
     "fbCache",
-    null
+    null,
   );
 
-  const [userTeams, setUserTeams] = useLocalStorage<TeamsData>("userTeams", []);
+  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
+  const [, , removeAllTeams] = useLocalStorage<TeamsBasic>("allTeams", []);
 
   useEffect(() => {
     const configRef = ref(database, "config");
@@ -60,15 +57,18 @@ export const compareAndUpateCache = () => {
       for (const [key, value] of Object.entries(latestCache)) {
         if (fbCache?.[key as keyof FbCache] !== value) {
           switch (key) {
-            case "teamDataHash":
-              console.log("bust teams");
-              const reqs = userTeams.map((team: TeamData, idx: number) =>
-                fetchData(team)
+            case "teamDataHash": {
+              console.log("bust user teams");
+              const reqs = userTeams.map((team: Team, idx: number) =>
+                fetchData(team),
               );
-              Promise.all(reqs).then((result) => {
-                setUserTeams(result);
-              });
+              Promise.all(reqs).then(setUserTeams);
               break;
+            }
+            case "teamsHash": {
+              removeAllTeams();
+              break;
+            }
             default:
           }
         }

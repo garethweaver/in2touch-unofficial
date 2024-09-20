@@ -15,7 +15,7 @@ const firebaseConfig = {
   storageBucket: "in2touch-cc0ab.appspot.com",
   messagingSenderId: "410654017001",
   appId: "1:410654017001:web:5f53ac9fc10d3a5dabf778",
-  measurementId: "G-LJ5GZ8JN1X"
+  measurementId: "G-LJ5GZ8JN1X",
 };
 
 // Initialize Firebase

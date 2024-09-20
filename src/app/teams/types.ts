@@ -1,12 +1,12 @@
-export type TeamsData = TeamData[];
-export type TeamsDataBasic = TeamDataBasic[];
+export type Teams = Team[];
+export type TeamsBasic = TeamBasic[];
 
-export interface TeamData extends TeamDataBasic {
+export interface Team extends TeamBasic {
   fixtures: Fixture[];
   fixturesHash: string;
 }
 
-export interface TeamDataBasic {
+export interface TeamBasic {
   id: string;
   name: string;
   nameLowercased: string;

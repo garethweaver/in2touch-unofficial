@@ -3,14 +3,14 @@ import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "@/app/_firebase/config";
 import { useLocalStorage } from "usehooks-ts";
-import type { TeamData, TeamsData } from "@/app/teams/types";
+import type { Team, Teams } from "@/app/teams/types";
 
 export default function Page({ params }: { params: { id: string } }) {
-  const [userTeams, setUserTeams] = useLocalStorage<TeamsData>("userTeams", []);
+  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
   const cachedTeam = userTeams.find((t) => params.id === t.id);
-  const [uncachedTeam, setUncachedTeam] = useState<TeamData | undefined>();
+  const [uncachedTeam, setUncachedTeam] = useState<Team | undefined>();
 
-  const addTeam = (newTeam: TeamData) => {
+  const addTeam = (newTeam: Team) => {
     setUserTeams([...userTeams, newTeam]);
     setUncachedTeam(undefined);
   };
@@ -26,7 +26,7 @@ export default function Page({ params }: { params: { id: string } }) {
         setUncachedTeam(data);
       }
     });
-  }, [params.id]);
+  }, []);
 
   return (
     <main>

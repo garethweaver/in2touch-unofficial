@@ -1,10 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
-import type { TeamsData } from "@/app/teams/types";
+import type { Teams } from "@/app/teams/types";
 
 export default function Page() {
-  const [userTeams, setUserTeams] = useLocalStorage<TeamsData>("userTeams", []);
+  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
+  const [userLeagues, setUserLeagues] = useLocalStorage<Teams>(
+    "userLeagues",
+    [],
+  );
 
   const removeTeam = (id: string) => {
     const idx = userTeams.findIndex((item) => item.id === id);
@@ -31,9 +35,22 @@ export default function Page() {
             </li>
           ))}
         </ul>
+        <ul>
+          {userLeagues.map((league) => (
+            <li key={league.id} style={{ padding: "1em" }}>
+              <Link href={`/leagues/${league.id}`}>
+                <strong>
+                  {league.id} - {league.name}
+                </strong>
+              </Link>
+              <br />
+              {/* <button onClick={() => removeleague(league.id)}>X</button> */}
+            </li>
+          ))}
+        </ul>
         <hr />
-        <Link href="/teams/add">Add a team</Link>
-        <Link href="/leagues/add">Add a league</Link>
+        <Link href="/add/teams">Add a team</Link>
+        <Link href="/add/leagues">Add a league</Link>
       </nav>
     </main>
   );

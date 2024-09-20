@@ -1,18 +1,11 @@
 "use client";
 // import type { Metadata } from "next";
-import { ref, onValue, child, get } from "firebase/database";
-import { database } from "@/app/_firebase/config";
-import { FbCache } from "@/app/_firebase/types";
-
 // import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/app/components/Header";
-import { useEffect } from "react";
+import Header from "@/app/_components/Header";
 import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
-import { snapshot } from "node:test";
-import { TeamData, TeamsData } from "@/app/teams/types";
-import { compareAndUpateCache } from "@/app/_helpers/helpers";
+import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -26,14 +19,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  compareAndUpateCache();
+  useCompareAndUpateCache();
+
+  const [settings] = useLocalStorage<{ theme: number | null }>(
+    "userSettings",
+    { theme: null },
+    { initializeWithValue: false },
+  );
 
   return (
     <html lang="en">
       <body>
-        <Header />
         {/* :laughycryface: */}
-        <NoSSR>{children}</NoSSR>
+        <NoSSR>
+          {settings && (
+            <div className="wrapper">
+              {settings.theme}
+              <Header />
+              {children}
+            </div>
+          )}
+        </NoSSR>
       </body>
     </html>
   );
