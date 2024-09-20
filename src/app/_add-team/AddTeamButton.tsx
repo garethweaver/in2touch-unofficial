@@ -1,13 +1,13 @@
 "use client";
-import type { TeamData } from "@/app/teams/types";
+import type { Team } from "@/app/teams/types";
 
 interface Props {
-  readonly team: TeamData;
+  readonly team: Team;
   readonly isSelected: boolean;
 }
 
 export default function AddTeamButton({ team, isSelected }: Props) {
-  const addTeam = (t: TeamData) => {
+  const addTeam = (t: Team) => {
     const userTeams = localStorage.getItem("userTeams");
 
     if (userTeams) {

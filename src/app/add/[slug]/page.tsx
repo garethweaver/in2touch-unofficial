@@ -8,11 +8,11 @@ import type { League } from "@/app/leagues/types";
 import type { Team } from "@/app/teams/types";
 import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
 
-type DynamicKey = {
+interface DynamicKey {
   db: string;
   cache: string;
   userSelected: string;
-};
+}
 
 type Item = Team | League;
 type List = (Team | League)[];

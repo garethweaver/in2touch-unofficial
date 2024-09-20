@@ -1,18 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { TeamData } from "@/app/teams/types";
+import type { Team } from "@/app/teams/types";
 import AddTeamButton from "./AddTeamButton";
 import Link from "next/link";
 
 export default function Page() {
-  const [teams, setTeams] = useState<TeamData[] | null>(null);
+  const [teams, setTeams] = useState<Team[] | null>(null);
   const [userTeams, setUserTeams] = useState<string[]>([]);
 
   useEffect(() => {
     // @ts-ignore
     const userData = localStorage.getItem("userTeams");
     if (userData) {
-      setUserTeams(JSON.parse(userData).map((t: TeamData) => t.id));
+      setUserTeams(JSON.parse(userData).map((t: Team) => t.id));
     }
     const fetchData = async () => {
       const res = await fetch(`/api/teams-data`);
@@ -29,7 +29,7 @@ export default function Page() {
     <main>
       <Link href="/">Back</Link>
       <ul>
-        {teams?.map((team: TeamData) => (
+        {teams?.map((team: Team) => (
           <li key={team.id}>
             <AddTeamButton
               team={team}

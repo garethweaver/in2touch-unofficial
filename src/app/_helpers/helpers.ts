@@ -1,4 +1,5 @@
 import { Team, Teams, TeamsBasic } from "@/app/teams/types";
+import { League, Leagues } from "@/app/leagues/types";
 import { useEffect } from "react";
 import { ref, onValue, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
@@ -17,17 +18,19 @@ export const sortNameLowerByAlpha = (a: sortItem, b: sortItem): number => {
   return 0;
 };
 
-const fetchData = (team: Team): Promise<Team> => {
-  return new Promise<Team>((resolve, reject) => {
-    const teamsRef = ref(database, `team-data/${team.id}`);
-    get(teamsRef)
+type dbItem = Team | League;
+
+const fetchData = (item: dbItem, dbPath: string): Promise<dbItem> => {
+  return new Promise<dbItem>((resolve, reject) => {
+    const dbRef = ref(database, `${dbPath}/${item.id}`);
+    get(dbRef)
       .then((snapshot) => {
         snapshot.exists() ? resolve(snapshot.val()) : reject();
       })
       .catch(() => reject());
   }).catch(() => {
-    console.error(`Error fetching ${team.id}`);
-    return team;
+    console.error(`Error fetching ${item.id}`);
+    return item;
   });
 };
 
@@ -39,6 +42,11 @@ export const useCompareAndUpateCache = () => {
 
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
   const [, , removeAllTeams] = useLocalStorage<TeamsBasic>("allTeams", []);
+  const [, , removeAllLeagues] = useLocalStorage<Leagues>("allLeagues", []);
+  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
+    "userLeagues",
+    [],
+  );
 
   useEffect(() => {
     const configRef = ref(database, "config");
@@ -60,19 +68,34 @@ export const useCompareAndUpateCache = () => {
             case "teamDataHash": {
               console.log("bust user teams");
               const reqs = userTeams.map((team: Team, idx: number) =>
-                fetchData(team),
+                fetchData(team, "team-data"),
               );
-              Promise.all(reqs).then(setUserTeams);
+              Promise.all(reqs).then((response) =>
+                setUserTeams(response as Teams),
+              );
               break;
             }
             case "teamsHash": {
               removeAllTeams();
               break;
             }
+            case "leaguesHash": {
+              removeAllLeagues();
+              console.log("bust user leagues");
+              const reqs = userLeagues.map((league: League, idx: number) =>
+                fetchData(league, "leagues"),
+              );
+              Promise.all(reqs).then((response) =>
+                setUserLeagues(response as Leagues),
+              );
+              break;
+            }
             default:
           }
         }
       }
+
+      setFbCache(latestCache);
     });
   }, []);
 };
