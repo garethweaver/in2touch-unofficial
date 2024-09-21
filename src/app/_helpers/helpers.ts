@@ -1,12 +1,14 @@
 import { Team, Teams, TeamsBasic } from "@/app/teams/types";
 import { League, Leagues } from "@/app/leagues/types";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ref, onValue, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
 import { FbCache } from "@/app/_firebase/types";
 import { useLocalStorage } from "usehooks-ts";
 
-type sortItem = { nameLowercased: string };
+interface sortItem {
+  nameLowercased: string;
+}
 
 export const sortNameLowerByAlpha = (a: sortItem, b: sortItem): number => {
   if (a.nameLowercased < b.nameLowercased) {
@@ -34,60 +36,50 @@ const fetchData = (item: dbItem, dbPath: string): Promise<dbItem> => {
   });
 };
 
-export const useCompareAndUpateCache = () => {
-  const [fbCache, setFbCache] = useLocalStorage<FbCache | null>(
-    "fbCache",
-    null,
-  );
-
-  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
+export const useCompareAndUpateCache = (setLoading: Function) => {
   const [, , removeAllTeams] = useLocalStorage<TeamsBasic>("allTeams", []);
   const [, , removeAllLeagues] = useLocalStorage<Leagues>("allLeagues", []);
+  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
   const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
     "userLeagues",
     [],
   );
+  const [fbCache, setFbCache] = useLocalStorage<FbCache | {}>("fbCache", {});
+  const cacheRef = useRef<FbCache | {}>(fbCache);
 
   useEffect(() => {
     const configRef = ref(database, "config");
+    setLoading(true);
 
-    onValue(configRef, (snapshot) => {
+    onValue(configRef, async (snapshot) => {
+      setLoading(true);
       const latestCache: FbCache = snapshot.val();
 
-      // fresh start
-      if (fbCache === null) {
-        setFbCache(latestCache);
-        return;
-      }
-
-      console.log("loading");
-
       for (const [key, value] of Object.entries(latestCache)) {
-        if (fbCache?.[key as keyof FbCache] !== value) {
+        if (cacheRef.current[key as keyof (FbCache | undefined)] !== value) {
           switch (key) {
             case "teamDataHash": {
-              console.log("bust user teams");
+              console.log("Refreshing user teams");
               const reqs = userTeams.map((team: Team, idx: number) =>
                 fetchData(team, "team-data"),
               );
-              Promise.all(reqs).then((response) =>
-                setUserTeams(response as Teams),
-              );
-              break;
-            }
-            case "teamsHash": {
-              removeAllTeams();
+              const response = (await Promise.all(reqs)) as Teams;
+              setUserTeams(response);
               break;
             }
             case "leaguesHash": {
+              console.log("Refreshing user leagues");
               removeAllLeagues();
-              console.log("bust user leagues");
               const reqs = userLeagues.map((league: League, idx: number) =>
                 fetchData(league, "leagues"),
               );
-              Promise.all(reqs).then((response) =>
-                setUserLeagues(response as Leagues),
-              );
+              const response = (await Promise.all(reqs)) as Leagues;
+              setUserLeagues(response);
+              break;
+            }
+            case "teamsHash": {
+              console.log("Bin all teams list");
+              removeAllTeams();
               break;
             }
             default:
@@ -95,7 +87,9 @@ export const useCompareAndUpateCache = () => {
         }
       }
 
+      cacheRef.current = latestCache;
       setFbCache(latestCache);
+      setLoading(false);
     });
   }, []);
 };

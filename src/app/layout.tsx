@@ -2,10 +2,11 @@
 // import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Header from "@/app/_components/Header";
+import { useState } from "react";
 import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
+import Header from "@/app/_components/Header";
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -18,7 +19,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useCompareAndUpateCache();
+  const [loading, setLoading] = useState(false);
+  useCompareAndUpateCache(setLoading);
 
   const [settings] = useLocalStorage<{ theme: number | null }>(
     "userSettings",
@@ -34,7 +36,7 @@ export default function RootLayout({
           {settings && (
             <div className="wrapper">
               {settings.theme}
-              <Header />
+              <Header loading={loading} />
               {children}
             </div>
           )}
