@@ -1,18 +1,20 @@
 "use client";
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { database } from "@/app/_firebase/config";
 import { useLocalStorage } from "usehooks-ts";
+import { database } from "@/app/_firebase/config";
+import Button from "@/app/_components/ButtonExternal";
 import type { Team, Teams } from "@/app/teams/types";
+
+import FixtureList from "../_components/FixtureList";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
   const cachedTeam = userTeams.find((t) => params.id === t.id);
-  const [uncachedTeam, setUncachedTeam] = useState<Team | undefined>();
+  const [team, setTeam] = useState<Team | undefined>(cachedTeam);
 
   const addTeam = (newTeam: Team) => {
     setUserTeams([...userTeams, newTeam]);
-    setUncachedTeam(undefined);
   };
 
   useEffect(() => {
@@ -23,21 +25,31 @@ export default function Page({ params }: { params: { id: string } }) {
     get(teamRef).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setUncachedTeam(data);
+        setTeam(data);
       }
     });
   }, []);
 
   return (
     <main>
-      {(cachedTeam || uncachedTeam) && (
+      {team ? (
         <>
-          {uncachedTeam && (
-            <button onClick={() => addTeam(uncachedTeam)}>Add team</button>
+          {!cachedTeam && (
+            <button onClick={() => addTeam(team)}>Add team</button>
           )}
-          TEAM {params.id}
-          {JSON.stringify(cachedTeam || uncachedTeam)}
+
+          <h1>{team.name}</h1>
+          {team.fixtures && team.fixtures.length > 0 ? (
+            <FixtureList fixtures={team.fixtures} />
+          ) : (
+            <em className="Color--muted">No team fixtures</em>
+          )}
+          <div className="Margin--t">
+            <Button href={team.profileUrl}>View profile on In2Touch</Button>
+          </div>
         </>
+      ) : (
+        "loading..."
       )}
     </main>
   );

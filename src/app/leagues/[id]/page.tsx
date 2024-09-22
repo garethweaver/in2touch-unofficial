@@ -1,8 +1,10 @@
 "use client";
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { database } from "@/app/_firebase/config";
 import { useLocalStorage } from "usehooks-ts";
+import { database } from "@/app/_firebase/config";
+import Button from "@/app/_components/ButtonExternal";
+import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import type { League, Leagues } from "@/app/leagues/types";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -10,39 +12,44 @@ export default function Page({ params }: { params: { id: string } }) {
     "userLeagues",
     [],
   );
-  const cachedLeague = userLeagues.find((t) => params.id === t.id);
-  const [uncachedLeague, setUncachedLeague] = useState<League | undefined>();
+  const cachedLeague = userLeagues.find((l) => params.id === l.id);
+  const [league, setLeague] = useState<League | undefined>(cachedLeague);
 
   const addLeague = (newLeague: League) => {
     setUserLeagues([...userLeagues, newLeague]);
-    setUncachedLeague(undefined);
   };
 
   useEffect(() => {
     // do not fetch if in local storage
     if (cachedLeague) return;
     // else fetch from databse
-    const dbRef = ref(database, `leagues/${params.id}`);
-    get(dbRef).then((snapshot) => {
+    const teamRef = ref(database, `leagues/${params.id}`);
+    get(teamRef).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setUncachedLeague(data);
+        setLeague(data);
       }
     });
   }, []);
 
   return (
     <main>
-      {(cachedLeague || uncachedLeague) && (
+      {league ? (
         <>
-          {uncachedLeague && (
-            <button onClick={() => addLeague(uncachedLeague)}>
-              Add league
-            </button>
+          {!cachedLeague && (
+            <button onClick={() => addLeague(league)}>Add league</button>
           )}
-          League {params.id}
-          {JSON.stringify(cachedLeague || uncachedLeague)}
+          <h1>{league.name}</h1>
+          <LeagueTable data={league.teams} />
+          <div className="Margin--t">
+            <Button href={league.fixturesUrl}>View fixtures on In2Touch</Button>
+            <Button href={league.standingUrl}>
+              View standings on In2Touch
+            </Button>
+          </div>
         </>
+      ) : (
+        "loading..."
       )}
     </main>
   );

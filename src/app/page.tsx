@@ -2,10 +2,14 @@
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
 import type { Teams } from "@/app/teams/types";
+import type { Leagues } from "@/app/leagues/types";
+import styles from "./page.module.sass";
+import Team from "@/app/teams/_components/Team";
+import LeagueBasic from "@/app/leagues/_components/LeagueBasic";
 
 export default function Page() {
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
-  const [userLeagues, setUserLeagues] = useLocalStorage<Teams>(
+  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
     "userLeagues",
     [],
   );
@@ -16,35 +20,19 @@ export default function Page() {
   };
 
   return (
-    <main>
+    <main className={styles.main}>
       <nav>
         <ul>
           {userTeams.map((team) => (
             <li key={team.id} style={{ padding: "1em" }}>
-              <Link href={`/teams/${team.id}`}>
-                <strong>
-                  {team.id} - {team.name}
-                </strong>
-              </Link>
-              <br />
-              {team.fixtures?.[0].time} - {team.fixtures?.[0].vs}
-              <br />
-              <small>{team.fixtures?.[0].leagueName}</small>
-              <br />
-              <button onClick={() => removeTeam(team.id)}>X</button>
+              <Team data={team} />
             </li>
           ))}
         </ul>
         <ul>
           {userLeagues.map((league) => (
             <li key={league.id} style={{ padding: "1em" }}>
-              <Link href={`/leagues/${league.id}`}>
-                <strong>
-                  {league.id} - {league.name}
-                </strong>
-              </Link>
-              <br />
-              {/* <button onClick={() => removeleague(league.id)}>X</button> */}
+              <LeagueBasic data={league} />
             </li>
           ))}
         </ul>
