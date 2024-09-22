@@ -53,42 +53,49 @@ export const useCompareAndUpateCache = (setLoading: Function) => {
 
     onValue(configRef, async (snapshot) => {
       setLoading(true);
-      const latestCache: FbCache = snapshot.val();
+      console.log("Connected to fb");
 
-      for (const [key, value] of Object.entries(latestCache)) {
-        if (cacheRef.current[key as keyof (FbCache | undefined)] !== value) {
-          switch (key) {
-            case "teamDataHash": {
-              console.log("Refreshing user teams");
-              const reqs = userTeams.map((team: Team, idx: number) =>
-                fetchData(team, "team-data"),
-              );
-              const response = (await Promise.all(reqs)) as Teams;
-              setUserTeams(response);
-              break;
+      if (snapshot.exists()) {
+        const latestCache: FbCache = snapshot.val();
+
+        for (const [key, value] of Object.entries(latestCache)) {
+          if (cacheRef.current[key as keyof (FbCache | undefined)] !== value) {
+            switch (key) {
+              case "teamDataHash": {
+                console.log("Refreshing user teams");
+                const reqs = userTeams.map((team: Team, idx: number) =>
+                  fetchData(team, "team-data"),
+                );
+                const response = (await Promise.all(reqs)) as Teams;
+                setUserTeams(response);
+                break;
+              }
+              case "leaguesHash": {
+                console.log("Refreshing user leagues + all leagues list");
+                removeAllLeagues();
+                const reqs = userLeagues.map((league: League, idx: number) =>
+                  fetchData(league, "leagues"),
+                );
+                const response = (await Promise.all(reqs)) as Leagues;
+                setUserLeagues(response);
+                break;
+              }
+              case "teamsHash": {
+                console.log("Binning all teams list");
+                removeAllTeams();
+                break;
+              }
+              default: {
+                // do nothing for updatedAt
+              }
             }
-            case "leaguesHash": {
-              console.log("Refreshing user leagues");
-              removeAllLeagues();
-              const reqs = userLeagues.map((league: League, idx: number) =>
-                fetchData(league, "leagues"),
-              );
-              const response = (await Promise.all(reqs)) as Leagues;
-              setUserLeagues(response);
-              break;
-            }
-            case "teamsHash": {
-              console.log("Bin all teams list");
-              removeAllTeams();
-              break;
-            }
-            default:
           }
         }
+
+        cacheRef.current = latestCache;
+        setFbCache(latestCache);
       }
 
-      cacheRef.current = latestCache;
-      setFbCache(latestCache);
       setLoading(false);
     });
   }, []);
