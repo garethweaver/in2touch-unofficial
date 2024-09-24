@@ -21,9 +21,9 @@ export default function RootLayout({
   const [loading, setLoading] = useState(false);
   useCompareAndUpateCache(setLoading);
 
-  const [userSettings] = useLocalStorage<{ theme: number | null }>(
+  const [userSettings] = useLocalStorage<{ theme: number | 0 }>(
     "userSettings",
-    { theme: null },
+    { theme: 0 },
     { initializeWithValue: false },
   );
 
