@@ -45,6 +45,9 @@ export default function Page({ params }: { params: { slug: string } }) {
     });
   }, []);
 
+  // TODO: search box
+  // TODO: styling
+
   return (
     <main>
       <ul>

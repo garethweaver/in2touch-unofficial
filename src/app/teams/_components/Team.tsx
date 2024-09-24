@@ -10,6 +10,7 @@ export default function Team({ data, ...props }: { data: Team }) {
       <Link href={`/teams/${data.id}`}>
         <div className="Flex__header">
           <h3 className="Flex__heading">{data.name}</h3>
+          {/* TODO: Team Edit button */}
           {/*
            <ButtonsEdit
              id={data.id}

@@ -21,6 +21,7 @@ export default function LeagueBasic({ data }: { data: League }) {
       <Link href={`/leagues/${data.id}`}>
         <div className="Flex__header">
           <span>{parseName(data.name)}</span>
+          {/* TODO: League Edit button */}
           {/*
         <ButtonsEdit
           id={data.id}

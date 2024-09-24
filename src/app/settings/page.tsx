@@ -109,6 +109,7 @@ export default function Page() {
         {/* <p>{version}</p> */}
       </section>
       <section className="Section">
+        {/* TODO: cache dump */}
         <button onClick={clearCache} className="Btn__flex">
           Clear local cache
           <span className="material-icons">sync</span>

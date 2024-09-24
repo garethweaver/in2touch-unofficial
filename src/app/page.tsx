@@ -14,7 +14,7 @@ const links: Href[] = [
     icon: "user",
   },
   {
-    text: "Add leagues",
+    text: "Add league",
     href: "/add/leagues",
     icon: "map-pin",
   },
@@ -31,6 +31,8 @@ export default function Page() {
     const idx = userTeams.findIndex((item) => item.id === id);
     setUserTeams(userTeams.toSpliced(idx, 1));
   };
+
+  // TODO: intro text
 
   return (
     <main>

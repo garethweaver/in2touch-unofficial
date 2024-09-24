@@ -35,6 +35,7 @@ export default function Header({ loading }: { loading: boolean }) {
               <Icon name="refresh-cw" />
             </div>
           )}
+          {/* TODO: back animation between teams */}
           <a onClick={() => router.back()}>
             <Icon name="arrow-left" className="header-icon" />
             Back

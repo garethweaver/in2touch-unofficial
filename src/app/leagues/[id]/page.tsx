@@ -5,6 +5,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { database } from "@/app/_firebase/config";
 import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import ButtonNav from "@/app/_components/ButtonNav";
+import Button from "@/app/_components/Button";
 import type { League, Leagues } from "@/app/leagues/types";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -14,9 +15,11 @@ export default function Page({ params }: { params: { id: string } }) {
   );
   const cachedLeague = userLeagues.find((l) => params.id === l.id);
   const [league, setLeague] = useState<League | undefined>(cachedLeague);
+  const [justAdded, setJustAdded] = useState<boolean>(false);
 
   const addLeague = (newLeague: League) => {
     setUserLeagues([...userLeagues, newLeague]);
+    setJustAdded(true);
   };
 
   useEffect(() => {
@@ -36,10 +39,17 @@ export default function Page({ params }: { params: { id: string } }) {
     <main>
       {league ? (
         <>
-          {!cachedLeague && (
-            <button onClick={() => addLeague(league)}>Add league</button>
-          )}
           <h1>{league.name}</h1>
+          {!cachedLeague && (
+            <Button icon="plus" onClick={() => addLeague(league)}>
+              Add league to homescreen
+            </Button>
+          )}
+          {justAdded && (
+            <Button icon="check-square" faux>
+              League added
+            </Button>
+          )}
           <LeagueTable data={league.teams} />
           <div className="Margin--t">
             <ButtonNav
