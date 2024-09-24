@@ -21,16 +21,8 @@ const links: Href[] = [
 ];
 
 export default function Page() {
-  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
-  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
-    "userLeagues",
-    [],
-  );
-
-  const removeTeam = (id: string) => {
-    const idx = userTeams.findIndex((item) => item.id === id);
-    setUserTeams(userTeams.toSpliced(idx, 1));
-  };
+  const [userTeams] = useLocalStorage<Teams>("userTeams", []);
+  const [userLeagues] = useLocalStorage<Leagues>("userLeagues", []);
 
   // TODO: intro text
 

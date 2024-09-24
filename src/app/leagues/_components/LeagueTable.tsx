@@ -1,4 +1,3 @@
-import React from "react";
 import LeagueTeam from "./LeagueTeam";
 import type { LeagueTeam as LeagueTeamType } from "../types";
 import "./LeagueTable.sass";

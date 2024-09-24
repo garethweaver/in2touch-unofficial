@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { League } from "../types";
 import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
+import EditListItem from "@/app/_components/EditListItem";
+import ButtonToggle from "@/app/_components/ButtonToggle";
 import "./LeagueBasic.sass";
 
 function parseName(name: string) {
@@ -16,18 +20,19 @@ function parseName(name: string) {
 }
 
 export default function LeagueBasic({ data }: { data: League }) {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   return (
     <div className="LeagueBasic Card">
       <Link href={`/leagues/${data.id}`}>
         <div className="Flex__header">
           <span>{parseName(data.name)}</span>
-          {/* TODO: League Edit button */}
-          {/*
-        <ButtonsEdit
-          id={data.id}
-          type="leagues" />
-         */}
+          <ButtonToggle callback={setIsEdit} value={isEdit} />
         </div>
+        <AnimatePresence>
+          {isEdit && (
+            <EditListItem localStorageKey="userLeagues" id={data.id} />
+          )}
+        </AnimatePresence>
         <div className="LeagueBasic__list">
           {data.teams && data.teams.length > 0 ? (
             <>
