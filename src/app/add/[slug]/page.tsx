@@ -58,9 +58,6 @@ export default function Page({ params }: { params: { slug: string } }) {
     });
   }, []);
 
-  // TODO: search box
-  // TODO: styling
-
   return (
     <main>
       {cachedData ? (
@@ -79,7 +76,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           />
           <ul className="SearchList">
             {cachedData
-              ?.filter((item) => searchFn(item, query))
+              .filter((item) => searchFn(item, query))
               .map((item) => {
                 const isAdded = localStorageCacheIDs.includes(item.id);
                 return (

@@ -6,6 +6,7 @@ import type { Leagues } from "@/app/leagues/types";
 import Team from "@/app/teams/_components/Team";
 import ButtonNav, { type Href } from "@/app/_components/ButtonNav";
 import LeagueBasic from "@/app/leagues/_components/LeagueBasic";
+import "./page.sass";
 
 const links: Href[] = [
   {
@@ -28,37 +29,51 @@ export default function Page() {
 
   return (
     <main>
-      <div className="Margin--b">
-        <h2 className="Flex__icon">
-          <Icon name="user" />
-          Your Teams
-        </h2>
-        <nav>
-          <ul>
-            {userTeams.map((team) => (
-              <li key={team.id}>
-                <Team data={team} />
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      <div className="Margin--b">
-        <h2 className="Flex__icon">
-          <Icon name="map-pin" />
-          Followed Leagues
-        </h2>
-        <nav>
-          <ul>
-            {userLeagues.map((league) => (
-              <li key={league.id}>
-                <LeagueBasic data={league} />
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-
+      {userTeams.length === 0 && userLeagues.length === 0 && (
+        <div className="Intro">
+          <h1>Alright, let's go!</h1>
+          <p>
+            First you'll need to find a team you play for or a league to follow.
+            We'll remember your preferences for future visits. You can change
+            the theme or reset the app on the settings page as well as finding
+            how to add the app to your homescreen.
+          </p>
+        </div>
+      )}
+      {userTeams.length > 0 && (
+        <div className="Margin--b">
+          <h2 className="Flex__icon">
+            <Icon name="user" />
+            Your Teams
+          </h2>
+          <nav>
+            <ul>
+              {userTeams.map((team) => (
+                <li key={team.id}>
+                  <Team data={team} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
+      {userLeagues.length > 0 && (
+        <div className="Margin--b">
+          <h2 className="Flex__icon">
+            <Icon name="map-pin" />
+            Followed Leagues
+          </h2>
+          <nav>
+            <ul>
+              {userLeagues.map((league) => (
+                <li key={league.id}>
+                  <LeagueBasic data={league} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
       <ButtonNav hrefs={links} />
     </main>
   );

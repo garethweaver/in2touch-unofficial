@@ -15,7 +15,7 @@ import { roboto, inconsolata } from "./fonts";
 
 // TODO: metadata
 // TODO: install as app
-// TODO: icons
+// TODO: app icons
 
 export default function RootLayout({
   children,
