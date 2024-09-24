@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Icon from "@/app/_components/Icon";
+import Loader from "@/app/_components/Loader";
 import "./Header.sass";
 
 export default function Header({ loading }: { loading: boolean }) {
@@ -15,7 +16,7 @@ export default function Header({ loading }: { loading: boolean }) {
           </div>
           {loading && (
             <div className="Header__loading">
-              <Icon name="refresh-cw" />
+              <Loader className="small" />
             </div>
           )}
           <Link href="/settings">
@@ -32,10 +33,9 @@ export default function Header({ loading }: { loading: boolean }) {
           </div>
           {loading && (
             <div className="Header__loading">
-              <Icon name="refresh-cw" />
+              <Loader className="small" />
             </div>
           )}
-          {/* TODO: back animation between teams */}
           <a onClick={() => router.back()}>
             <Icon name="arrow-left" className="header-icon" />
             Back

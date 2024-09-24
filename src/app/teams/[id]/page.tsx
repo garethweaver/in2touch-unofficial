@@ -2,8 +2,11 @@
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { motion } from "framer-motion";
 import { database } from "@/app/_firebase/config";
 import Button from "@/app/_components/Button";
+import Icon from "@/app/_components/Icon";
+import Loader from "@/app/_components/Loader";
 import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "../_components/FixtureList";
 import type { Team, Teams } from "@/app/teams/types";
@@ -27,7 +30,10 @@ export default function Page({ params }: { params: { id: string } }) {
     get(teamRef).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setTeam(data);
+        // stop loader blink
+        setTimeout(() => {
+          setTeam(data);
+        }, 150);
       }
     });
   }, []);
@@ -35,8 +41,15 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       {team ? (
-        <>
-          <h1>{team.name}</h1>
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.2 }}
+        >
+          <h1>
+            {team.name}{" "}
+            {cachedTeam && <Icon name="star" className="Color--muted" />}
+          </h1>
           {!cachedTeam && (
             <Button icon="plus" onClick={() => addTeam(team)}>
               Add team to homescreen
@@ -67,10 +80,9 @@ export default function Page({ params }: { params: { id: string } }) {
               ]}
             />
           </div>
-        </>
+        </motion.div>
       ) : (
-        // TODO: loading state
-        "loading..."
+        <Loader className="center" />
       )}
     </main>
   );

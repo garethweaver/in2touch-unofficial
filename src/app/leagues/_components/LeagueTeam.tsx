@@ -15,7 +15,7 @@ export default function LeagueTeam({ data }: { data: LeagueTeam }) {
           <div>{data.pointsFor}</div>
           <div>{data.pointsAgainst}</div>
           <div>{data.pointsBonus}</div>
-          <strong>{data.points}</strong>
+          <strong className="Color--highlight">{data.points}</strong>
         </div>
       </Link>
     </div>

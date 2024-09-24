@@ -2,10 +2,12 @@
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { motion } from "framer-motion";
 import { database } from "@/app/_firebase/config";
 import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import ButtonNav from "@/app/_components/ButtonNav";
 import Button from "@/app/_components/Button";
+import Loader from "@/app/_components/Loader";
 import type { League, Leagues } from "@/app/leagues/types";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -30,7 +32,9 @@ export default function Page({ params }: { params: { id: string } }) {
     get(teamRef).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setLeague(data);
+        setTimeout(() => {
+          setLeague(data);
+        }, 150);
       }
     });
   }, []);
@@ -38,7 +42,11 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       {league ? (
-        <>
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.2 }}
+        >
           <h1>{league.name}</h1>
           {!cachedLeague && (
             <Button icon="plus" onClick={() => addLeague(league)}>
@@ -70,9 +78,9 @@ export default function Page({ params }: { params: { id: string } }) {
               ]}
             />
           </div>
-        </>
+        </motion.div>
       ) : (
-        "loading..."
+        <Loader className="center" />
       )}
     </main>
   );

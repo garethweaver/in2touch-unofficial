@@ -1,12 +1,16 @@
 "use client";
 import { get, ref } from "firebase/database";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
+import { motion } from "framer-motion";
+import Loader from "@/app/_components/Loader";
 import { database } from "@/app/_firebase/config";
+import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
+import Icon from "@/app/_components/Icon";
 import type { League } from "@/app/leagues/types";
 import type { Team } from "@/app/teams/types";
-import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
+import "./page.sass";
 
 interface DynamicKey {
   db: string;
@@ -16,6 +20,10 @@ interface DynamicKey {
 
 type Item = Team | League;
 type List = (Team | League)[];
+
+const searchFn = (t: { nameLowercased: string }, q: string) => {
+  return t.nameLowercased.search(q) !== -1;
+};
 
 export default function Page({ params }: { params: { slug: string } }) {
   const keys: DynamicKey = {
@@ -30,6 +38,11 @@ export default function Page({ params }: { params: { slug: string } }) {
     keys.cache,
     null,
   );
+  const [query, setQuery] = useState<string>("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value.toLowerCase());
+  };
 
   useEffect(() => {
     // do not fetch if in local storage
@@ -50,14 +63,42 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main>
-      <ul>
-        {cachedData?.map((item) => (
-          <li key={item.id}>
-            {localStorageCacheIDs.includes(item.id) && <>✅</>}
-            <Link href={`/${keys.db}/${item.id}`}>{item.nameLowercased}</Link>
-          </li>
-        ))}
-      </ul>
+      {cachedData ? (
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.2 }}
+        >
+          <input
+            className="SearchInput"
+            type="search"
+            placeholder="Search..."
+            id="Search"
+            onChange={handleSearch}
+            autoFocus
+          />
+          <ul className="SearchList">
+            {cachedData
+              ?.filter((item) => searchFn(item, query))
+              .map((item) => {
+                const isAdded = localStorageCacheIDs.includes(item.id);
+                return (
+                  <li
+                    key={item.id}
+                    className={`${isAdded ? `SearchList__item--added` : ""}`}
+                  >
+                    <Link href={`/${keys.db}/${item.id}`}>
+                      {item.name}
+                      {isAdded && <Icon name="star" />}
+                    </Link>
+                  </li>
+                );
+              })}
+          </ul>
+        </motion.div>
+      ) : (
+        <Loader className="center" />
+      )}
     </main>
   );
 }

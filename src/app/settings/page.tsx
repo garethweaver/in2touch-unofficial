@@ -1,11 +1,13 @@
 "use client";
+import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { FbCache } from "@/app/_firebase/types";
+import Button from "@/app/_components/Button";
 import "./page.sass";
 
 const themes: string[] = [
   "Default",
-  "Night",
+  "Midnight",
   "Candyfloss",
   "Eagles",
   "Synthwave",
@@ -17,10 +19,11 @@ const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
 
 export default function Page() {
-  const [settings, setSettings] = useLocalStorage<{ theme: number | null }>(
-    "userSettings",
-    { theme: null },
-  );
+  const [decached, setDecached] = useState<boolean>(false);
+
+  const [settings, setSettings, removeSettings] = useLocalStorage<{
+    theme: number;
+  }>("userSettings", { theme: 0 });
 
   const [fbCache] = useLocalStorage<FbCache | { updatedAt: undefined }>(
     "fbCache",
@@ -34,7 +37,15 @@ export default function Page() {
   };
 
   const clearCache = () => {
-    console.log("clear caches");
+    setDecached(true);
+    localStorage.removeItem("userTeams");
+    localStorage.removeItem("userLeagues");
+    localStorage.removeItem("allTeams");
+    localStorage.removeItem("allLeagues");
+    removeSettings();
+    setTimeout(() => {
+      setDecached(false);
+    }, 2000);
   };
 
   return (
@@ -105,15 +116,18 @@ export default function Page() {
         <p>{getDate(fbCache.updatedAt)}</p>
       </section>
       <section className="Section">
-        <h2>Version number</h2>
-        {/* <p>{version}</p> */}
-      </section>
-      <section className="Section">
-        {/* TODO: cache dump */}
-        <button onClick={clearCache} className="Btn__flex">
-          Clear local cache
-          <span className="material-icons">sync</span>
-        </button>
+        <h2>
+          Version number: <span>{process.env.version}</span>
+        </h2>
+        {decached ? (
+          <Button icon="check" faux>
+            Cache dropped!
+          </Button>
+        ) : (
+          <Button icon="zap" onClick={clearCache}>
+            Clear local cache
+          </Button>
+        )}
       </section>
     </main>
   );

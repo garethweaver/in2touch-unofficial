@@ -20,7 +20,7 @@ export default function FixtureList({ fixtures }: { fixtures: FixtureType[] }) {
       {past.length > 0 && (
         <div className="Margin--t">
           <h2 className="Flex__icon">
-            <Icon name="check-circle" />
+            <Icon name="check-square" />
             Past Fixtures
           </h2>
           <ol>{getFixtures(past, true)}</ol>
