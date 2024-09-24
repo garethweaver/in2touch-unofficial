@@ -25,18 +25,16 @@ export default function Page() {
   const [userTeams] = useLocalStorage<Teams>("userTeams", []);
   const [userLeagues] = useLocalStorage<Leagues>("userLeagues", []);
 
-  // TODO: intro text
-
   return (
     <main>
       {userTeams.length === 0 && userLeagues.length === 0 && (
         <div className="Intro">
-          <h1>Alright, let's go!</h1>
+          <h1>Alright, let&apos;s go!</h1>
           <p>
-            First you'll need to find a team you play for or a league to follow.
-            We'll remember your preferences for future visits. You can change
-            the theme or reset the app on the settings page as well as finding
-            how to add the app to your homescreen.
+            First you&apos;ll need to find a team you play for or a league to
+            follow. We&apos;ll remember your preferences for future visits. You
+            can change the theme or reset the app on the settings page as well
+            as finding how to add the app to your homescreen.
           </p>
         </div>
       )}
