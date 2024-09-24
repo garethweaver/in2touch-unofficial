@@ -51,7 +51,11 @@ export default function Fixture({
       {data.grading && (
         <p>
           <em className="Color--muted">
-            <Icon name="shuffle" />
+            <Icon
+              name="shuffle"
+              size="small"
+              className="Fixture__grading-icon"
+            />
             Grading game
           </em>
         </p>
