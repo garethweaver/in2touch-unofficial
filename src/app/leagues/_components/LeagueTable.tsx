@@ -1,7 +1,7 @@
 import React from "react";
 import LeagueTeam from "./LeagueTeam";
 import type { LeagueTeam as LeagueTeamType } from "../types";
-// import './league-table.sass'
+import "./LeagueTable.sass";
 
 export default function LeagueTable({
   data,

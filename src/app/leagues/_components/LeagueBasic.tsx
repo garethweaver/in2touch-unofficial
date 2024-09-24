@@ -1,5 +1,6 @@
 import { League } from "../types";
 import Link from "next/link";
+import "./LeagueBasic.sass";
 
 function parseName(name: string) {
   let namesArr: undefined | string[];
@@ -16,7 +17,7 @@ function parseName(name: string) {
 
 export default function LeagueBasic({ data }: { data: League }) {
   return (
-    <div className="League Card">
+    <div className="LeagueBasic Card">
       <Link href={`/leagues/${data.id}`}>
         <div className="Flex__header">
           <span>{parseName(data.name)}</span>
@@ -26,17 +27,21 @@ export default function LeagueBasic({ data }: { data: League }) {
           type="leagues" />
          */}
         </div>
-        <div className="League__list">
+        <div className="LeagueBasic__list">
           {data.teams && data.teams.length > 0 ? (
             <>
               <h6 className="Heading__sm">Teams:</h6>
               <ol>
-                {data.teams.map((team, i: number) => {
+                {data.teams.map((team, idx: number) => {
                   return (
-                    <li key={team.id} className="League__team">
-                      <span className="League__team-pos">{i + 1}</span>
-                      <span className="League__team-name">{team.name}</span>
-                      <span className="League__team-points">{team.points}</span>
+                    <li key={team.id} className="LeagueBasic__team">
+                      <span className="LeagueBasic__team-pos">{idx + 1}</span>
+                      <span className="LeagueBasic__team-name">
+                        {team.name}
+                      </span>
+                      <span className="LeagueBasic__team-points">
+                        {team.points}
+                      </span>
                     </li>
                   );
                 })}

@@ -1,13 +1,12 @@
 "use client";
 // import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import "./globals.css";
 import { useState } from "react";
 import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
+import "./globals.sass";
+import { roboto, inconsolata } from "./fonts";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -22,7 +21,7 @@ export default function RootLayout({
   const [loading, setLoading] = useState(false);
   useCompareAndUpateCache(setLoading);
 
-  const [settings] = useLocalStorage<{ theme: number | null }>(
+  const [userSettings] = useLocalStorage<{ theme: number | null }>(
     "userSettings",
     { theme: null },
     { initializeWithValue: false },
@@ -30,17 +29,19 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body
+        className={`${roboto.variable} ${inconsolata.variable} Theme--${userSettings.theme}`}
+      >
         {/* :laughycryface: */}
         <NoSSR>
-          {settings && (
-            <div className="wrapper">
-              {settings.theme}
+          {userSettings && (
+            <div className="pageWrapper">
               <Header loading={loading} />
               {children}
             </div>
           )}
         </NoSSR>
+        <div className="pageBg" />
       </body>
     </html>
   );

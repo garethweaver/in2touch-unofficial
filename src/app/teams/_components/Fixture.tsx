@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Icon from "@/app/_components/Icon";
 import Location from "./Location";
 import type { Fixture } from "../types";
+import "./Fixture.sass";
 
 function getResultClassName(arr: string[]) {
   if (parseInt(arr[0]) > parseInt(arr[1])) {
@@ -40,20 +42,16 @@ export default function Fixture({
         ) : (
           <p className="Fixture__time Fixture--strong">{data.time}</p>
         )}
-        <Link href={`/teams/${data.vsId}`}>
+        <Link className="Fixture__team-link" href={`/teams/${data.vsId}`}>
           <strong>{data.vs}</strong>
-          <span className="Fixture__link-icon material-icons">
-            arrow_forward
-          </span>
+          <Icon name="arrow-right" />
         </Link>
       </div>
       <p>{data.day}</p>
       {data.grading && (
         <p>
           <em className="Color--muted">
-            <span className="Fixture__grading-icon material-icons">
-              shuffle
-            </span>
+            <Icon name="shuffle" />
             Grading game
           </em>
         </p>

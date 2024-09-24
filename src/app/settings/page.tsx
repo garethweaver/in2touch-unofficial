@@ -1,7 +1,18 @@
 "use client";
 import { useLocalStorage } from "usehooks-ts";
 import { FbCache } from "@/app/_firebase/types";
-const themes: string[] = ["default", "green"];
+import "./page.sass";
+
+const themes: string[] = [
+  "Default",
+  "Night",
+  "Candyfloss",
+  "Eagles",
+  "Synthwave",
+  "Triple-threat",
+  "Accsessible",
+];
+
 const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
 
@@ -33,20 +44,28 @@ export default function Page() {
         <h2>Add to homescreen</h2>
         <p>To add this app to your homescreen:</p>
         <p>
-          <strong>On IOS</strong> click the share button and find the 'add to
-          homescreen' grey icon.
+          <strong>On IOS</strong> click the share button and find the &lsquo;add
+          to homescreen&rsquo; grey icon.
         </p>
         <p>
-          <strong>On Android</strong> click the chrome menu button and then 'add
-          to homescreen'.
+          <strong>On Android</strong> click the chrome menu button and then
+          &lsquo;add to homescreen&rsquo;.
         </p>
       </section>
       <section className="Section">
         <h2>Theme</h2>
-        <ul>
+        <ul className="ThemeButtons">
           {themes.map((theme, idx) => (
             <li key={idx}>
-              <button onClick={() => setTheme(idx)}>{theme}</button>
+              <button
+                className={`ThemeButton--${idx} ${
+                  settings.theme === idx ? "ThemeButton--selected" : ""
+                }`}
+                onClick={() => setTheme(idx)}
+              >
+                <span />
+                {theme}
+              </button>
             </li>
           ))}
         </ul>
@@ -70,7 +89,7 @@ export default function Page() {
           >
             github
           </a>{" "}
-          if you're a nerd. You can also message me on{" "}
+          if you&apos;re a nerd. You can also message me on{" "}
           <a
             target="_blank"
             rel="noopener noreferrer"

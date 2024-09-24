@@ -1,3 +1,4 @@
+import Icon from "@/app/_components/Icon";
 import Fixture from "./Fixture";
 import type { Fixture as FixtureType } from "../types";
 
@@ -19,7 +20,7 @@ export default function FixtureList({ fixtures }: { fixtures: FixtureType[] }) {
       {past.length > 0 && (
         <div className="Margin--t">
           <h2 className="Flex__icon">
-            <span className="material-icons">check_circle_outline</span>
+            <Icon name="check-circle" />
             Past Fixtures
           </h2>
           <ol>{getFixtures(past, true)}</ol>
@@ -28,7 +29,7 @@ export default function FixtureList({ fixtures }: { fixtures: FixtureType[] }) {
       {future.length > 0 && (
         <div className="Margin--t">
           <h2 className="Flex__icon">
-            <span className="material-icons">schedule</span>
+            <Icon name="calendar" />
             Upcoming Fixtures
           </h2>
           <ol>{getFixtures(future)}</ol>

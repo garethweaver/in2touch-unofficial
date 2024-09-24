@@ -3,10 +3,9 @@ import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { database } from "@/app/_firebase/config";
-import Button from "@/app/_components/ButtonExternal";
-import type { Team, Teams } from "@/app/teams/types";
-
+import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "../_components/FixtureList";
+import type { Team, Teams } from "@/app/teams/types";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
@@ -34,18 +33,27 @@ export default function Page({ params }: { params: { id: string } }) {
     <main>
       {team ? (
         <>
+          <h1>{team.name}</h1>
           {!cachedTeam && (
             <button onClick={() => addTeam(team)}>Add team</button>
           )}
-
-          <h1>{team.name}</h1>
           {team.fixtures && team.fixtures.length > 0 ? (
             <FixtureList fixtures={team.fixtures} />
           ) : (
             <em className="Color--muted">No team fixtures</em>
           )}
           <div className="Margin--t">
-            <Button href={team.profileUrl}>View profile on In2Touch</Button>
+            <ButtonNav
+              stacked
+              hrefs={[
+                {
+                  text: "View profile on In2Touch",
+                  href: team.profileUrl,
+                  icon: "arrow-up-right",
+                  external: true,
+                },
+              ]}
+            />
           </div>
         </>
       ) : (

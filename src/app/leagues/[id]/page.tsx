@@ -3,8 +3,8 @@ import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { database } from "@/app/_firebase/config";
-import Button from "@/app/_components/ButtonExternal";
 import LeagueTable from "@/app/leagues/_components/LeagueTable";
+import ButtonNav from "@/app/_components/ButtonNav";
 import type { League, Leagues } from "@/app/leagues/types";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -42,10 +42,23 @@ export default function Page({ params }: { params: { id: string } }) {
           <h1>{league.name}</h1>
           <LeagueTable data={league.teams} />
           <div className="Margin--t">
-            <Button href={league.fixturesUrl}>View fixtures on In2Touch</Button>
-            <Button href={league.standingUrl}>
-              View standings on In2Touch
-            </Button>
+            <ButtonNav
+              stacked
+              hrefs={[
+                {
+                  text: "View fixtures on In2Touch",
+                  href: league.fixturesUrl,
+                  icon: "arrow-up-right",
+                  external: true,
+                },
+                {
+                  text: "View standings on In2Touch",
+                  href: league.standingUrl,
+                  icon: "arrow-up-right",
+                  external: true,
+                },
+              ]}
+            />
           </div>
         </>
       ) : (

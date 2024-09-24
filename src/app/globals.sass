@@ -1,0 +1,211 @@
+// $border-radius: 5px
+
+// $color-text-default: #ffffff
+// $color-text-muted: rgba(white, 0.7)
+// $color-links: #ffffff
+// $color-attention: #fcff41
+// $font-family-base: 'Roboto', sans-serif
+// $font-family-mono: 'Inconsolata', sans-serif
+// $font-size-sm: 14px
+// $border-radius: 5px
+
+:root
+  --color-text-default: #ffffff
+  --color-text-muted: rgba(255, 255, 255, 0.7)
+  --color-links: #ffffff
+  --color-attention: #fcff41
+  --color-success: #73ff39
+  --color-danger: #ffaf6a
+  // --font-family-base: 'Roboto', sans-serif
+  // --font-family-mono: 'Inconsolata', sans-serif
+  --font-size-sm: 14px
+  --border-radius: 5px
+
+=square($x)
+  height: $x
+  width: $x
+
+=circle($x)
+  +square($x)
+  border-radius: 50%
+
+*
+  box-sizing: border-box
+
+body,
+html
+  min-width: 300px
+  min-height: 100%
+
+body
+  margin: 0
+  color: var(--color-text-default)
+  font-family: var(--font-family-base)
+
+a
+  text-decoration: none
+  color: var(--color-links)
+
+h1, h2, h3, h4, h5, h6
+  font-family: var(--font-family-mono)
+  letter-spacing: 1px
+
+h1, h2
+  font-size: 24px
+  letter-spacing: 1px
+  margin-top: 0
+
+h2
+  font-size: 16px
+  color: var(--color-highlight)
+
+ul,
+ol
+  padding: 0
+  margin: 0
+  list-style: none
+
+  li
+    margin: 3px 0
+
+.Card
+  padding: 15px 10px
+  border-radius: var(--border-radius)
+  background: var(--color-card)
+
+.Color
+  &--muted
+    color: var(--color-text-muted)
+
+  &--danger
+    color: var(--color-danger)
+
+  &--warning
+    color: var(--color-attention)
+
+  &--success
+    color: var(--color-success)
+
+.Margin
+  &--t
+    margin-top: 30px
+
+  &--b
+    margin-bottom: 30px
+
+  &--icon-after
+    margin-left: 5px
+
+  &--icon-before
+    margin-right: 5px
+
+.Flex
+  &__icon
+    display: flex
+    align-items: center
+
+    .feather
+      margin-right: 8px
+
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding-bottom: 10px
+    margin-bottom: 10px
+    border-bottom: 1px solid rgba(black, 0.1)
+
+  &__bar
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    p
+      margin: 0
+
+  &__heading
+    margin: 0
+    text-transform: uppercase
+
+.Text
+  &--small
+    font-size: var(--font-size-sm !important)
+
+  &--medium
+    font-size: 16px !important
+
+.Heading__sm
+  font-size: 12px
+  margin: 0 0 5px
+  color: var(--color-text-muted)
+  font-weight: normal
+
+.Theme--0
+  --color-highlight: #00ffe7
+  --color-gradient: linear-gradient(135deg, #5663ff 10%, #12978b 100%)
+  --color-header: rgba(47, 26, 119, 0.86)
+  --color-inverse: rgba(black, 0.4)
+  --color-card: #{rgba(0, 0, 0, 0.1)}
+
+.Theme--1
+  --color-highlight: #8e95c7
+  --color-gradient: linear-gradient(180deg, #1E1E20 10%, #1E1E20 100%)
+  --color-header: #{rgba(27, 27, 27, 0.85)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(255, 255, 255, 0.03)}
+
+.Theme--2
+  --color-highlight: #370537
+  --color-gradient: linear-gradient(135deg, #aa68ae 10%, #823071 100%)
+  --color-header: #{rgba(86, 26, 84, 0.8)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(0, 0, 0, 0.1)}
+
+.Theme--3
+  --color-highlight: #68E9FB
+  --color-gradient: linear-gradient(135deg, #03677e 10%, #094B60 100%)
+  --color-header: #{rgba(6,60,77, 0.8)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(0, 0, 0, 0.1)}
+
+.Theme--4
+  --color-highlight: #ff8b77
+  --color-gradient: linear-gradient(135deg, #852d4d 10%, #510869 100%)
+  --color-header: #{rgba(99, 25, 64, 0.8)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(0, 0, 0, 0.1)}
+  --color-danger: #ff46fd
+
+.Theme--5
+  --color-highlight: #ff984d
+  --color-gradient: linear-gradient(180deg, #1b1b1b 10%, #070707 100%)
+  --color-header: #{rgba(22,22,22, 0.85)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(255, 255, 255, 0.03)}
+  --color-danger: #ff6565
+
+.Theme--6
+  --color-highlight: #b7d6ff
+  --color-gradient: #131313
+  --color-header: #{rgba(0, 0, 0, 0.85)}
+  --color-inverse: #{rgba(white, 0.4)}
+  --color-card: #{rgba(0, 0, 0, 1)}
+  --color-danger: #ff6565
+
+.pageWrapper
+  padding: 80px 10px 50px
+  max-width: 500px
+  margin: 0 auto
+
+  @media (min-width: 400px)
+    padding: 80px 20px 50px
+
+.pageBg
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  height: 100vh
+  z-index: -1
+  background: var(--color-gradient)

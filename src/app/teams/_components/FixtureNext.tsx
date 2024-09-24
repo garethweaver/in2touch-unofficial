@@ -1,5 +1,6 @@
 import { Fixture } from "../types";
 import Location from "./Location";
+import "./FixtureNext.sass";
 
 function getAllNextOnSameDay(fixtures: Fixture[]): Fixture[] {
   let next: Fixture[] = [];
@@ -17,23 +18,23 @@ function getAllNextOnSameDay(fixtures: Fixture[]): Fixture[] {
 
 function NextGame({ next }: { next: Fixture }) {
   return (
-    <div className="NextFixture__game">
+    <div className="FixtureNext__game">
       <div className="Flex__bar">
-        <p className="NextFixture__time">{next.time}</p>
-        <p className="NextFixture__vs">
+        <p className="FixtureNext__time">{next.time}</p>
+        <p className="FixtureNext__vs">
           <strong>{next.vs}</strong>
         </p>
       </div>
-      <p className="NextFixture__day">{next.day}</p>
+      <p className="FixtureNext__day">{next.day}</p>
       <Location pitch={next.pitch} leagueName={next.leagueName} />
     </div>
   );
 }
 
-export default function NextFixture({ fixtures }: { fixtures: Fixture[] }) {
+export default function FixtureNext({ fixtures }: { fixtures: Fixture[] }) {
   const next = getAllNextOnSameDay(fixtures);
   return (
-    <div className="NextFixture">
+    <div className="FixtureNext">
       {next.length === 0 ? (
         <em className="Color--muted Text--small">No scheduled fixtures</em>
       ) : (

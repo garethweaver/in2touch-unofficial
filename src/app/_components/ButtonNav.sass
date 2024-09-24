@@ -1,0 +1,38 @@
+.ButtonNav
+  a
+    text-transform: uppercase
+    font-family: var(--font-family-mono)
+    color: var(--color-highlight)
+    display: flex
+    align-items: center
+    border: 1px solid var(--color-highlight)
+    padding: 15px 10px
+
+  &--stacked
+    a
+      flex-direction: row-reverse
+      justify-content: space-between
+    a:nth-child(n+2)
+      border-top: 0
+    a:first-child
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
+    a:last-child
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
+
+  &--bar
+    display: flex
+    a:first-child
+      border-top-left-radius: 5px
+      border-bottom-left-radius: 5px
+    a:last-child
+      border-top-right-radius: 5px
+      border-bottom-right-radius: 5px
+    .feather
+      margin-right: 8px
+    a
+      flex: 50%
+      justify-content: center
+    a:nth-child(n+2)
+      border-left: 0
