@@ -8,16 +8,12 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
+// TODO: metadata
 export const metadata: Metadata = {
   title: "In2Touch Unofficial",
   description:
     "Find and follow teams to show gametimes and league tables from the In2Touch website",
-  themeColor: "#000000",
 };
-
-// TODO: metadata
-// TODO: install as app
-// TODO: app icons
 
 export default function RootLayout({
   children,

@@ -4,6 +4,7 @@ import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
+import "./ThemeWrapper.sass";
 
 export default function ThemeWrapper({
   children,
