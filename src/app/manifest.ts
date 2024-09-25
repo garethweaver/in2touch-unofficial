@@ -12,22 +12,25 @@ export default function manifest(): MetadataRoute.Manifest {
     prefer_related_applications: false,
     icons: [
       {
-        purpose: "any",
-        src: "icon-sq.svg",
+        purpose: "maskable",
+        src: "icon-sq-512x512.svg",
         sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
         type: "image/svg+xml",
       },
       {
-        purpose: "any",
-        src: "icon-sq.png",
-        sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
+        purpose: "maskable",
+        src: "/icon-192-maskable.png",
         type: "image/png",
+        sizes: "192x192",
       },
       {
-        src: "/favicon.ico",
-        sizes: "48x48",
-        type: "image/x-icon",
+        purpose: "maskable",
+        src: "/icon-512-maskable.png",
+        type: "image/png",
+        sizes: "512x512",
       },
+      { src: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { src: "/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
   };
 }
