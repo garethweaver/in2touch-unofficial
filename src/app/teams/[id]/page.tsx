@@ -12,7 +12,9 @@ import FixtureList from "../_components/FixtureList";
 import type { Team, Teams } from "@/app/teams/types";
 
 export default function Page({ params }: { readonly params: { id: string } }) {
-  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
+  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", [], {
+    initializeWithValue: false,
+  });
   const cachedTeam = userTeams.find((t) => params.id === t.id);
   const [team, setTeam] = useState<Team | undefined>(cachedTeam);
   const [justAdded, setJustAdded] = useState<boolean>(false);
