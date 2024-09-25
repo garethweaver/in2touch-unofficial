@@ -23,7 +23,7 @@ export default function LeagueBasic({ data }: { readonly data: League }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   return (
     <div className="LeagueBasic Card">
-      <Link href={`/leagues/${data.id}`} prefetch>
+      <Link href={`/leagues/${data.id}`}>
         <div className="Flex__header">
           <span>{parseName(data.name)}</span>
           <ButtonToggle callback={setIsEdit} value={isEdit} />

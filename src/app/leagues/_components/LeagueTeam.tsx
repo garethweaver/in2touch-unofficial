@@ -5,7 +5,7 @@ import type { LeagueTeam } from "../types";
 export default function LeagueTeam({ data }: { readonly data: LeagueTeam }) {
   return (
     <div className="LeagueTeam Card">
-      <Link href={`/teams/${data.id}`} prefetch>
+      <Link href={`/teams/${data.id}`}>
         <h3 className="LeagueTeam__name">{data.name}</h3>
         <div className="LeagueTeam__results">
           <div>{data.played}</div>

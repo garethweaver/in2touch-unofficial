@@ -34,7 +34,7 @@ export default function Fixture({
   readonly isPast: boolean;
 }) {
   return (
-    <Link className="Fixture" href={`/teams/${data.vsId}`} prefetch>
+    <Link className="Fixture" href={`/teams/${data.vsId}`}>
       {isPast && <h6 className="Heading__sm">Result:</h6>}
       <div className="Flex__bar">
         {isPast ? (

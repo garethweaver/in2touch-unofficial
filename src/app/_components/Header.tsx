@@ -19,14 +19,14 @@ export default function Header({ loading }: { readonly loading: boolean }) {
               <Loader className="small" />
             </div>
           )}
-          <Link href="/settings" prefetch>
+          <Link href="/settings">
             <Icon name="settings" />
           </Link>
         </>
       ) : (
         <>
           <div className="Header__left">
-            <Link href="/" prefetch>
+            <Link href="/">
               <Icon name="home" className="header-icon" />
               Home
             </Link>
