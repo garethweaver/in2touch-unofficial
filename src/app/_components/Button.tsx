@@ -7,10 +7,10 @@ export default function Button({
   faux,
   children,
 }: {
-  onClick?: () => void;
-  icon?: string;
-  faux?: boolean;
-  children: React.ReactNode;
+  readonly onClick?: () => void;
+  readonly icon?: string;
+  readonly faux?: boolean;
+  readonly children: React.ReactNode;
 }) {
   return faux ? (
     <div className="Button Button--faux">

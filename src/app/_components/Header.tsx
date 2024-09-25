@@ -4,7 +4,7 @@ import Icon from "@/app/_components/Icon";
 import Loader from "@/app/_components/Loader";
 import "./Header.sass";
 
-export default function Header({ loading }: { loading: boolean }) {
+export default function Header({ loading }: { readonly loading: boolean }) {
   const pathname = usePathname();
   const router = useRouter();
   return (

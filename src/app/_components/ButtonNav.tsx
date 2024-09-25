@@ -13,8 +13,8 @@ export default function ButtonNav({
   stacked,
   hrefs,
 }: {
-  stacked?: boolean;
-  hrefs: Href[];
+  readonly stacked?: boolean;
+  readonly hrefs: Href[];
 }) {
   return (
     <nav

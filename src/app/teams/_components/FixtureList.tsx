@@ -12,7 +12,11 @@ function getFixtures(fixtures: FixtureType[], isPast?: boolean) {
   });
 }
 
-export default function FixtureList({ fixtures }: { fixtures: FixtureType[] }) {
+export default function FixtureList({
+  fixtures,
+}: {
+  readonly fixtures: FixtureType[];
+}) {
   const future = fixtures.filter((f) => f.timestamp > Date.now());
   const past = fixtures.filter((f) => f.timestamp <= Date.now());
   return (

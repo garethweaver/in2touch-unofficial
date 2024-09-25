@@ -30,8 +30,8 @@ export default function Fixture({
   data,
   isPast,
 }: {
-  data: Fixture;
-  isPast: boolean;
+  readonly data: Fixture;
+  readonly isPast: boolean;
 }) {
   return (
     <div className="Fixture">

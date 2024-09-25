@@ -31,7 +31,11 @@ function NextGame({ next }: { next: Fixture }) {
   );
 }
 
-export default function FixtureNext({ fixtures }: { fixtures: Fixture[] }) {
+export default function FixtureNext({
+  fixtures,
+}: {
+  readonly fixtures: Fixture[];
+}) {
   const next = getAllNextOnSameDay(fixtures);
   return (
     <div className="FixtureNext">

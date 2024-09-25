@@ -5,7 +5,7 @@ import "./LeagueTable.sass";
 export default function LeagueTable({
   data,
 }: {
-  data: LeagueTeamType[] | undefined;
+  readonly data: LeagueTeamType[] | undefined;
 }) {
   return (
     <div className="LeagueTable">

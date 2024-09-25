@@ -19,7 +19,7 @@ function parseName(name: string) {
   );
 }
 
-export default function LeagueBasic({ data }: { data: League }) {
+export default function LeagueBasic({ data }: { readonly data: League }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   return (
     <div className="LeagueBasic Card">

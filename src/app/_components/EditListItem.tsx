@@ -7,8 +7,8 @@ export default function EditListItem({
   localStorageKey,
   id,
 }: {
-  localStorageKey: string;
-  id: string;
+  readonly localStorageKey: string;
+  readonly id: string;
 }) {
   const [items, setItems] = useLocalStorage<{ id: string }[]>(
     localStorageKey,

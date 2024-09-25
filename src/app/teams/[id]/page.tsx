@@ -11,7 +11,7 @@ import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "../_components/FixtureList";
 import type { Team, Teams } from "@/app/teams/types";
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { readonly params: { id: string } }) {
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
   const cachedTeam = userTeams.find((t) => params.id === t.id);
   const [team, setTeam] = useState<Team | undefined>(cachedTeam);

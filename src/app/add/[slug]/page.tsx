@@ -25,7 +25,11 @@ const searchFn = (t: { nameLowercased: string }, q: string) => {
   return t.nameLowercased.search(q) !== -1;
 };
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page({
+  params,
+}: {
+  readonly params: { slug: string };
+}) {
   const keys: DynamicKey = {
     db: params.slug,
     cache: `all${params.slug[0].toUpperCase() + params.slug.slice(1)}`,

@@ -10,7 +10,7 @@ import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
 import type { League, Leagues } from "@/app/leagues/types";
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { readonly params: { id: string } }) {
   const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
     "userLeagues",
     [],

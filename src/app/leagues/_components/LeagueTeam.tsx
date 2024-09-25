@@ -2,7 +2,7 @@ import Link from "next/link";
 import "./LeagueTeam.sass";
 import type { LeagueTeam } from "../types";
 
-export default function LeagueTeam({ data }: { data: LeagueTeam }) {
+export default function LeagueTeam({ data }: { readonly data: LeagueTeam }) {
   return (
     <div className="LeagueTeam Card">
       <Link href={`/teams/${data.id}`}>

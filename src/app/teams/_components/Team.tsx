@@ -6,7 +6,7 @@ import ButtonToggle from "@/app/_components/ButtonToggle";
 import FixtureNext from "./FixtureNext";
 import type { Team } from "../types";
 
-export default function Team({ data, ...props }: { data: Team }) {
+export default function Team({ data }: { readonly data: Team }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   return (

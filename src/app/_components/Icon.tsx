@@ -10,9 +10,9 @@ export default function Icon({
   className,
   size = "medium",
 }: {
-  name: string;
-  className?: string;
-  size?: "large" | "medium" | "small";
+  readonly name: string;
+  readonly className?: string;
+  readonly size?: "large" | "medium" | "small";
 }) {
   return (
     <FeatherIcon

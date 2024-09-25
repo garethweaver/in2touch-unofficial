@@ -6,8 +6,8 @@ export default function ButtonToggle({
   callback,
   value,
 }: {
-  callback: (value: boolean) => void;
-  value: boolean;
+  readonly callback: (value: boolean) => void;
+  readonly value: boolean;
 }) {
   const handleEdit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
