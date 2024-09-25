@@ -53,7 +53,7 @@ export default function LeagueDetail({ id }: { readonly id: string }) {
             </Button>
           )}
           {justAdded && (
-            <Button icon="check-square" faux>
+            <Button icon="check" faux>
               League added
             </Button>
           )}

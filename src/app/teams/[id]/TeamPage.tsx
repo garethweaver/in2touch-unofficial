@@ -51,7 +51,7 @@ export default function TeamDetail({ id }: { readonly id: string }) {
             </Button>
           )}
           {justAdded && (
-            <Button icon="user-check" faux>
+            <Button icon="check" faux>
               Team added
             </Button>
           )}
