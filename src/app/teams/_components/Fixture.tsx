@@ -34,7 +34,7 @@ export default function Fixture({
   readonly isPast: boolean;
 }) {
   return (
-    <div className="Fixture">
+    <Link className="Fixture" href={`/teams/${data.vsId}`}>
       {isPast && <h6 className="Heading__sm">Result:</h6>}
       <div className="Flex__bar">
         {isPast ? (
@@ -42,10 +42,10 @@ export default function Fixture({
         ) : (
           <p className="Fixture__time Fixture--strong">{data.time}</p>
         )}
-        <Link className="Fixture__team-link" href={`/teams/${data.vsId}`}>
+        <div className="Fixture__team-link">
           <strong>{data.vs}</strong>
           <Icon name="arrow-right" />
-        </Link>
+        </div>
       </div>
       <p>{data.day}</p>
       {data.grading && (
@@ -61,6 +61,6 @@ export default function Fixture({
         </p>
       )}
       {!isPast && <Location pitch={data.pitch} leagueName={data.leagueName} />}
-    </div>
+    </Link>
   );
 }
