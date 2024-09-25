@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cookies-next": "^4.2.1",
     "feather-icons-react": "^0.7.0",
     "firebase": "^10.13.1",
     "framer-motion": "^11.5.5",

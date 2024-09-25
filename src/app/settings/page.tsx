@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { setCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
 import Button from "@/app/_components/Button";
 import "./page.sass";
@@ -34,6 +35,8 @@ export default function Page() {
   );
 
   const setTheme = (idx: number) => {
+    const expires = new Date(Date.now() + 86400 * 1000 * 365 * 5);
+    setCookie("theme", idx, { expires });
     setSettings({ ...settings, theme: idx });
   };
 

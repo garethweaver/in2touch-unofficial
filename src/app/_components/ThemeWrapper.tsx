@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
@@ -14,11 +14,11 @@ export default function ThemeWrapper({
   useCompareAndUpateCache(setLoading);
 
   const [userSettings] = useLocalStorage<{
-    theme: number;
-  }>("userSettings", { theme: 1 }, { initializeWithValue: false });
+    theme: number | null;
+  }>("userSettings", { theme: null }, { initializeWithValue: false });
 
   return (
-    <div className={`Theme--${userSettings.theme}`}>
+    <div className={userSettings.theme ? `Theme--${userSettings.theme}` : ""}>
       <div className="pageWrapper">
         <Header loading={loading} />
         {children}
