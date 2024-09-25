@@ -1,6 +1,6 @@
 import { Team, Teams, TeamsBasic } from "@/app/teams/types";
 import { League, Leagues } from "@/app/leagues/types";
-import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { ref, onValue, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
 import { FbCache } from "@/app/_firebase/types";
@@ -36,7 +36,9 @@ const fetchData = (item: dbItem, dbPath: string): Promise<dbItem> => {
   });
 };
 
-export const useCompareAndUpateCache = (setLoading: Function) => {
+export const useCompareAndUpateCache = (
+  setLoading: Dispatch<SetStateAction<boolean>>,
+) => {
   const [, , removeAllTeams] = useLocalStorage<TeamsBasic>("allTeams", []);
   const [, , removeAllLeagues] = useLocalStorage<Leagues>("allLeagues", []);
   const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
@@ -49,54 +51,64 @@ export const useCompareAndUpateCache = (setLoading: Function) => {
 
   useEffect(() => {
     const configRef = ref(database, "config");
+    // on mount
     setLoading(true);
 
-    onValue(configRef, async (snapshot) => {
-      setLoading(true);
-      console.log("Connected to fb");
+    onValue(
+      configRef,
+      async (snapshot) => {
+        // on every hash change sync
+        setLoading(true);
+        console.log("Connected to fb");
 
-      if (snapshot.exists()) {
-        const latestCache: FbCache = snapshot.val();
+        if (snapshot.exists()) {
+          const latestCache: FbCache = snapshot.val();
 
-        for (const [key, value] of Object.entries(latestCache)) {
-          if (cacheRef.current[key as keyof (FbCache | undefined)] !== value) {
-            switch (key) {
-              case "teamDataHash": {
-                console.log("Refreshing user teams");
-                const reqs = userTeams.map((team: Team, idx: number) =>
-                  fetchData(team, "team-data"),
-                );
-                const response = (await Promise.all(reqs)) as Teams;
-                setUserTeams(response);
-                break;
-              }
-              case "leaguesHash": {
-                console.log("Refreshing user leagues + all leagues list");
-                removeAllLeagues();
-                const reqs = userLeagues.map((league: League, idx: number) =>
-                  fetchData(league, "leagues"),
-                );
-                const response = (await Promise.all(reqs)) as Leagues;
-                setUserLeagues(response);
-                break;
-              }
-              case "teamsHash": {
-                console.log("Binning all teams list");
-                removeAllTeams();
-                break;
-              }
-              default: {
-                // do nothing for updatedAt
+          for (const [key, value] of Object.entries(latestCache)) {
+            if (
+              cacheRef.current[key as keyof (FbCache | undefined)] !== value
+            ) {
+              switch (key) {
+                case "teamDataHash": {
+                  console.log("Refreshing user teams");
+                  const reqs = userTeams.map((team: Team, idx: number) =>
+                    fetchData(team, "team-data"),
+                  );
+                  const response = (await Promise.all(reqs)) as Teams;
+                  setUserTeams(response);
+                  break;
+                }
+                case "leaguesHash": {
+                  console.log("Refreshing user leagues + all leagues list");
+                  removeAllLeagues();
+                  const reqs = userLeagues.map((league: League, idx: number) =>
+                    fetchData(league, "leagues"),
+                  );
+                  const response = (await Promise.all(reqs)) as Leagues;
+                  setUserLeagues(response);
+                  break;
+                }
+                case "teamsHash": {
+                  console.log("Binning all teams list");
+                  removeAllTeams();
+                  break;
+                }
+                default: {
+                  // do nothing for updatedAt
+                }
               }
             }
           }
+
+          cacheRef.current = latestCache;
+          setFbCache(latestCache);
         }
 
-        cacheRef.current = latestCache;
-        setFbCache(latestCache);
-      }
-
-      setLoading(false);
-    });
+        setLoading(false);
+      },
+      (error) => {
+        console.error(error);
+      },
+    );
   }, []);
 };
