@@ -30,7 +30,11 @@ export default function LeagueBasic({ data }: { readonly data: League }) {
         </div>
         <AnimatePresence>
           {isEdit && (
-            <EditListItem localStorageKey="userLeagues" id={data.id} />
+            <EditListItem
+              localStorageKey="userLeagues"
+              id={data.id}
+              callback={setIsEdit}
+            />
           )}
         </AnimatePresence>
         <div className="LeagueBasic__list">

@@ -6,9 +6,11 @@ import "./EditListItem.sass";
 export default function EditListItem({
   localStorageKey,
   id,
+  callback,
 }: {
   readonly localStorageKey: string;
   readonly id: string;
+  readonly callback: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [items, setItems] = useLocalStorage<{ id: string }[]>(
     localStorageKey,
@@ -21,11 +23,13 @@ export default function EditListItem({
     e.stopPropagation();
     const removedArr = items.toSpliced(idx, 1);
     setItems(removedArr.toSpliced(idx + dir, 0, items[idx]));
+    callback(false);
   };
   const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setItems(items.toSpliced(idx, 1));
+    callback(false);
   };
 
   return (

@@ -17,7 +17,13 @@ export default function Team({ data }: { readonly data: Team }) {
           <ButtonToggle callback={setIsEdit} value={isEdit} />
         </div>
         <AnimatePresence>
-          {isEdit && <EditListItem localStorageKey="userTeams" id={data.id} />}
+          {isEdit && (
+            <EditListItem
+              localStorageKey="userTeams"
+              id={data.id}
+              callback={setIsEdit}
+            />
+          )}
         </AnimatePresence>
         {data.fixtures ? (
           <FixtureNext fixtures={data.fixtures} />
