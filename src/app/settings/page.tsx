@@ -13,7 +13,7 @@ const themes: string[] = [
   "Eagles",
   "Synthwave",
   "Triple-threat",
-  "Accsessible",
+  "High-contrast",
 ];
 
 const getDate = (dateString?: number) =>
@@ -58,14 +58,34 @@ export default function Page() {
       <h1 className="Margin--b">Settings</h1>
       <section className="Section">
         <h2>Add to homescreen</h2>
-        <p>To add this app to your homescreen:</p>
         <p>
-          <strong>On IOS</strong> click the share button and find the &lsquo;add
-          to homescreen&rsquo; grey icon.
+          You can follow{" "}
+          <a
+            rel="noreferrer"
+            href="https://www.androidauthority.com/add-website-android-iphone-home-screen-3181682/"
+            target="_blank"
+          >
+            this guide
+          </a>{" "}
+          to add this app to your homescreen or follow the short descriptions
+          below.
         </p>
         <p>
-          <strong>On Android</strong> click the chrome menu button and then
-          &lsquo;add to homescreen&rsquo;.
+          <strong>On IOS:</strong>
+          <br />
+          click the share button and find the &lsquo;add to homescreen&rsquo;
+          grey icon.
+        </p>
+        <p>
+          <strong>On Android Chrome:</strong>
+          <br />
+          click the chrome menu button and then &lsquo;add to homescreen&rsquo;.
+        </p>
+        <p>
+          <strong>On Samsung Mobile:</strong>
+          <br />
+          click the browser menu button and then &lsquo;add to&rsquo; then
+          &lsquo;home screen&rsquo;.
         </p>
       </section>
       <section className="Section">
