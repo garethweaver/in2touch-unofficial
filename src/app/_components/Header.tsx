@@ -36,10 +36,10 @@ export default function Header({ loading }: { readonly loading: boolean }) {
               <Loader className="small" />
             </div>
           )}
-          <a onClick={() => router.back()}>
+          <button onClick={() => router.back()}>
             <Icon name="arrow-left" className="header-icon" />
             Back
-          </a>
+          </button>
         </>
       )}
     </header>
