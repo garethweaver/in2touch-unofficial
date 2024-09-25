@@ -34,7 +34,7 @@ export default function Page({ params }: { readonly params: { id: string } }) {
         const data = snapshot.val();
         setTimeout(() => {
           setLeague(data);
-        }, 150);
+        }, 100);
       }
     });
   }, []);

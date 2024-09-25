@@ -33,7 +33,7 @@ export default function Page({ params }: { readonly params: { id: string } }) {
         // stop loader blink
         setTimeout(() => {
           setTeam(data);
-        }, 150);
+        }, 100);
       }
     });
   }, []);
