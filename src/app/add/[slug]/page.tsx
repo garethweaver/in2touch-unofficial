@@ -93,7 +93,7 @@ export default function Page({
                   >
                     <Link href={`/${keys.db}/${item.id}`}>
                       {item.name}
-                      {isAdded && <Icon name="star" />}
+                      {isAdded && <Icon name="check" />}
                     </Link>
                   </li>
                 );

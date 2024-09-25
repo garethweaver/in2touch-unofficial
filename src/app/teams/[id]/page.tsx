@@ -48,10 +48,7 @@ export default function Page({ params }: { readonly params: { id: string } }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeInOut", duration: 0.2 }}
         >
-          <h1>
-            {team.name}{" "}
-            {cachedTeam && <Icon name="star" className="Color--muted" />}
-          </h1>
+          <h1>{team.name} </h1>
           {!cachedTeam && (
             <Button icon="plus" onClick={() => addTeam(team)}>
               Add team to homescreen
