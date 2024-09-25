@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { setCookie } from "cookies-next";
+import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
 import Button from "@/app/_components/Button";
 import "./page.sass";
@@ -47,6 +47,7 @@ export default function Page() {
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
     setSettings({ theme: 1 });
+    deleteCookie("theme");
     setTimeout(() => {
       setDecached(false);
     }, 2000);
