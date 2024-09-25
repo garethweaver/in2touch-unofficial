@@ -6,11 +6,11 @@ import { database } from "@/app/_firebase/config";
 import { FbCache } from "@/app/_firebase/types";
 import { useLocalStorage } from "usehooks-ts";
 
-interface sortItem {
+interface SortItem {
   nameLowercased: string;
 }
 
-export const sortNameLowerByAlpha = (a: sortItem, b: sortItem): number => {
+export const sortNameLowerByAlpha = (a: SortItem, b: SortItem): number => {
   if (a.nameLowercased < b.nameLowercased) {
     return -1;
   }
