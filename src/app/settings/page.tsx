@@ -21,7 +21,7 @@ const getDate = (dateString?: number) =>
 export default function Page() {
   const [decached, setDecached] = useState<boolean>(false);
 
-  const [settings, setSettings, removeSettings] = useLocalStorage<{
+  const [settings, setSettings] = useLocalStorage<{
     theme: number;
   }>("userSettings", { theme: 0 }, { initializeWithValue: false });
 
@@ -43,7 +43,7 @@ export default function Page() {
     localStorage.removeItem("userLeagues");
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
-    removeSettings();
+    setSettings({ theme: 1 });
     setTimeout(() => {
       setDecached(false);
     }, 2000);
@@ -70,10 +70,10 @@ export default function Page() {
           {themes.map((theme, idx) => (
             <li key={idx}>
               <button
-                className={`ThemeButton--${idx} ${
-                  settings.theme === idx ? "ThemeButton--selected" : ""
+                className={`ThemeButton--${idx + 1} ${
+                  settings.theme === idx + 1 ? "ThemeButton--selected" : ""
                 }`}
-                onClick={() => setTheme(idx)}
+                onClick={() => setTheme(idx + 1)}
               >
                 <span />
                 {theme}

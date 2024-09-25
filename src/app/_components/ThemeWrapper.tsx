@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
@@ -13,11 +13,13 @@ export default function ThemeWrapper({
   const [loading, setLoading] = useState(false);
   useCompareAndUpateCache(setLoading);
 
-  const [userSettings] = useLocalStorage<{ theme: number | null }>(
-    "userSettings",
-    { theme: null },
-    { initializeWithValue: false },
-  );
+  const [userSettings, setUserSettings] = useLocalStorage<{
+    theme: number | null;
+  }>("userSettings", { theme: null }, { initializeWithValue: false });
+
+  useEffect(() => {
+    userSettings.theme === null && setUserSettings({ theme: 1 });
+  }, []);
 
   return (
     userSettings.theme && (
