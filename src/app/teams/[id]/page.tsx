@@ -5,7 +5,6 @@ import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { database } from "@/app/_firebase/config";
 import Button from "@/app/_components/Button";
-import Icon from "@/app/_components/Icon";
 import Loader from "@/app/_components/Loader";
 import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "../_components/FixtureList";
