@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "In2Touch Unofficial",
   description:
     "Find and follow teams to show gametimes and league tables from the In2Touch website",
+  themeColor: "#000000",
 };
 
 // TODO: metadata
