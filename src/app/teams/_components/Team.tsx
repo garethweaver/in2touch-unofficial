@@ -11,7 +11,7 @@ export default function Team({ data }: { readonly data: Team }) {
 
   return (
     <div className="Team Card">
-      <Link href={`/teams/${data.id}`}>
+      <Link href={`/teams/${data.id}`} prefetch>
         <div className="Flex__header">
           <h3 className="Flex__heading">{data.name}</h3>
           <ButtonToggle callback={setIsEdit} value={isEdit} />

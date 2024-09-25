@@ -91,7 +91,7 @@ export default function Page({
                     key={item.id}
                     className={`${isAdded ? `SearchList__item--added` : ""}`}
                   >
-                    <Link href={`/${keys.db}/${item.id}`}>
+                    <Link href={`/${keys.db}/${item.id}`} prefetch>
                       {item.name}
                       {isAdded && <Icon name="check" />}
                     </Link>
