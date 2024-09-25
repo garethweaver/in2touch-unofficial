@@ -22,9 +22,9 @@ export default async ({ children }: { readonly children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${inconsolata.variable} ${`Theme--${
+        className={`${roboto.variable} ${inconsolata.variable} Theme--${
           theme || 1
-        }`}`}
+        }`}
       >
         <ThemeWrapper>{children}</ThemeWrapper>
       </body>
