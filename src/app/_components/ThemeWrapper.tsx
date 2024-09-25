@@ -13,19 +13,21 @@ export default function ThemeWrapper({
   const [loading, setLoading] = useState(false);
   useCompareAndUpateCache(setLoading);
 
-  const [userSettings] = useLocalStorage<{ theme: number }>(
+  const [userSettings] = useLocalStorage<{ theme: number | null }>(
     "userSettings",
-    { theme: 0 },
+    { theme: null },
     { initializeWithValue: false },
   );
 
   return (
-    <div className={`Theme--${userSettings.theme}`}>
-      <div className="pageWrapper">
-        <Header loading={loading} />
-        {children}
+    userSettings.theme && (
+      <div className={`Theme--${userSettings.theme}`}>
+        <div className="pageWrapper">
+          <Header loading={loading} />
+          {children}
+        </div>
+        <div className="pageBg" />
       </div>
-      <div className="pageBg" />
-    </div>
+    )
   );
 }
