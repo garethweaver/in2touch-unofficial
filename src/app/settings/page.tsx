@@ -23,13 +23,14 @@ export default function Page() {
 
   const [settings, setSettings, removeSettings] = useLocalStorage<{
     theme: number;
-  }>("userSettings", { theme: 0 });
+  }>("userSettings", { theme: 0 }, { initializeWithValue: false });
 
   const [fbCache] = useLocalStorage<FbCache | { updatedAt: undefined }>(
     "fbCache",
     {
       updatedAt: undefined,
     },
+    { initializeWithValue: false },
   );
 
   const setTheme = (idx: number) => {

@@ -22,8 +22,12 @@ const links: Href[] = [
 ];
 
 export default function Page() {
-  const [userTeams] = useLocalStorage<Teams>("userTeams", []);
-  const [userLeagues] = useLocalStorage<Leagues>("userLeagues", []);
+  const [userTeams] = useLocalStorage<Teams>("userTeams", [], {
+    initializeWithValue: false,
+  });
+  const [userLeagues] = useLocalStorage<Leagues>("userLeagues", [], {
+    initializeWithValue: false,
+  });
 
   return (
     <main>

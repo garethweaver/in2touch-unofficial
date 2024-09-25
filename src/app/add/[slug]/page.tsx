@@ -36,11 +36,14 @@ export default function Page({
     userSelected: `user${params.slug[0].toUpperCase() + params.slug.slice(1)}`,
   };
 
-  const [localStorageCache] = useLocalStorage<List>(keys.userSelected, []);
+  const [localStorageCache] = useLocalStorage<List>(keys.userSelected, [], {
+    initializeWithValue: false,
+  });
   const localStorageCacheIDs = localStorageCache.map((t: Item) => t.id);
   const [cachedData, setCachedData] = useLocalStorage<List | null>(
     keys.cache,
     null,
+    { initializeWithValue: false },
   );
   const [query, setQuery] = useState<string>("");
 

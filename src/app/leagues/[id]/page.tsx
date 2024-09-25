@@ -14,6 +14,7 @@ export default function Page({ params }: { readonly params: { id: string } }) {
   const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
     "userLeagues",
     [],
+    { initializeWithValue: false },
   );
   const cachedLeague = userLeagues.find((l) => params.id === l.id);
   const [league, setLeague] = useState<League | undefined>(cachedLeague);
