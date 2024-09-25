@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { getCookie } from "cookies-next";
 import { roboto, inconsolata } from "./fonts";
 import ThemeWrapper from "@/app/_components/ThemeWrapper";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.sass";
 
 export const viewport: Viewport = {
@@ -26,6 +27,7 @@ export default async ({ children }: { readonly children: React.ReactNode }) => {
         }`}
       >
         <ThemeWrapper>{children}</ThemeWrapper>
+        <Analytics />
       </body>
     </html>
   );
