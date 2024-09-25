@@ -10,7 +10,6 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
-// TODO: metadata
 export const metadata: Metadata = {
   title: "In2Touch Unofficial",
   description:
