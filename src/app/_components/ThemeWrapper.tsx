@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import NoSSR from "react-no-ssr";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
@@ -22,14 +21,10 @@ export default function ThemeWrapper({
 
   return (
     <div className={`Theme--${userSettings.theme}`}>
-      <NoSSR>
-        {userSettings && (
-          <div className="pageWrapper">
-            <Header loading={loading} />
-            {children}
-          </div>
-        )}
-      </NoSSR>
+      <div className="pageWrapper">
+        <Header loading={loading} />
+        {children}
+      </div>
       <div className="pageBg" />
     </div>
   );
