@@ -1,6 +1,6 @@
 import Icon from "./Icon";
 import { motion } from "framer-motion";
-import "./ButtonToggle.sass";
+import styles from "./ButtonToggle.module.sass";
 
 export default function ButtonToggle({
   callback,
@@ -16,7 +16,7 @@ export default function ButtonToggle({
   };
 
   return (
-    <button onClick={handleEdit} className="ButtonToggle">
+    <button onClick={handleEdit} className={styles.root}>
       {value && (
         <motion.div
           initial={{ scale: 0 }}

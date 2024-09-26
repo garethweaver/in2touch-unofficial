@@ -101,7 +101,7 @@ export default function Page({
           </ul>
         </motion.div>
       ) : (
-        <Loader className="center" />
+        <Loader type="center" />
       )}
     </main>
   );

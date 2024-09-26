@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Icon from "./Icon";
-import "./ButtonNav.sass";
+import styles from "./ButtonNav.module.sass";
 
 export interface Href {
   external?: boolean;
@@ -17,11 +17,7 @@ export default function ButtonNav({
   readonly hrefs: Href[];
 }) {
   return (
-    <nav
-      className={`ButtonNav ${
-        stacked ? "ButtonNav--stacked" : "ButtonNav--bar"
-      }`}
-    >
+    <nav className={`${styles.root} ${stacked ? styles.stacked : styles.bar}`}>
       {hrefs.map((h: Href) => {
         return h.external ? (
           <a

@@ -77,7 +77,7 @@ export default function TeamDetail({ id }: { readonly id: string }) {
           </div>
         </motion.div>
       ) : (
-        <Loader className="center" />
+        <Loader type="center" />
       )}
     </main>
   );

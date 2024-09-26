@@ -1,6 +1,6 @@
 $button-offset: 10px
 
-.Header
+.root
   background: var(--color-header)
   height: 60px
   position: fixed
@@ -20,9 +20,6 @@ $button-offset: 10px
   @media (min-width: 400px)
     padding: $button-offset
 
-  &__left
-    flex-grow: 1
-
   a
     display: flex
     align-items: center
@@ -31,23 +28,28 @@ $button-offset: 10px
     width: fit-content
     padding: $button-offset
 
-  &__logo
-    padding: $button-offset
-
-  &__loading
-    display: flex
-    align-items: center
-    animation: spin 1000ms linear infinite
-    color: var(--color-highlight)
-    margin-right: 10px
-
-  .header-icon
-    margin-right: 6px
-
   button
     display: flex
     align-items: center
     padding: $button-offset
+
+.left
+  flex-grow: 1
+
+.logo
+  padding: $button-offset
+  font-size: 14px
+  margin: 0
+
+.loading
+  display: flex
+  align-items: center
+  animation: spin 1000ms linear infinite
+  color: var(--color-highlight)
+  margin-right: 10px
+
+.icon
+  margin-right: 6px
 
 @keyframes spin
   from

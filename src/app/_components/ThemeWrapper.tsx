@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
-import "./ThemeWrapper.sass";
+import styles from "./ThemeWrapper.module.sass";
 
 export default function ThemeWrapper({
   children,
@@ -19,11 +19,11 @@ export default function ThemeWrapper({
 
   return (
     <div className={userSettings.theme ? `Theme--${userSettings.theme}` : ""}>
-      <div className="pageWrapper">
+      <div className={styles.pageWrapper}>
         <Header loading={loading} />
         {children}
       </div>
-      <div className="pageBg" />
+      <div className={styles.pageBg} />
     </div>
   );
 }

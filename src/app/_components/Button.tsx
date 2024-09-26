@@ -1,5 +1,5 @@
 import Icon from "./Icon";
-import "./Button.sass";
+import styles from "./Button.module.sass";
 
 export default function Button({
   onClick,
@@ -13,12 +13,12 @@ export default function Button({
   readonly children: React.ReactNode;
 }) {
   return faux ? (
-    <div className="Button Button--faux">
+    <div className={`${styles.root} ${styles.faux}`}>
       {children}
       {icon && <Icon name={icon} />}
     </div>
   ) : (
-    <button className="Button" onClick={onClick}>
+    <button className={styles.root} onClick={onClick}>
       {children}
       {icon && <Icon name={icon} />}
     </button>

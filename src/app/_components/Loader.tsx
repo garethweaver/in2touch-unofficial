@@ -1,9 +1,13 @@
-import "./Loader.sass";
+import styles from "./Loader.module.sass";
 
-export default function Loader({ className }: { readonly className?: string }) {
+export default function Loader({
+  type,
+}: {
+  readonly type?: "small" | "center";
+}) {
   return (
-    <div className={`Loader ${className ? `Loader--${className}` : ""}`}>
-      <div className="Loader__inner" />
+    <div className={`${type ? styles[type] : ""}`}>
+      <div className={styles.inner} />
     </div>
   );
 }

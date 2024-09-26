@@ -1,4 +1,4 @@
-.ButtonNav
+.root
   a
     text-transform: uppercase
     font-family: var(--font-family-mono)
@@ -9,7 +9,7 @@
     padding: 15px 10px
     font-weight: bold
 
-  &--stacked
+  &.stacked
     a
       flex-direction: row-reverse
       justify-content: space-between
@@ -22,7 +22,7 @@
       border-bottom-left-radius: var(--border-radius)
       border-bottom-right-radius: var(--border-radius)
 
-  &--bar
+  &.bar
     display: flex
     a:first-child
       border-top-left-radius: var(--border-radius)
@@ -30,7 +30,7 @@
     a:last-child
       border-top-right-radius: var(--border-radius)
       border-bottom-right-radius: var(--border-radius)
-    .feather
+    svg
       margin-right: 8px
     a
       flex: 50%

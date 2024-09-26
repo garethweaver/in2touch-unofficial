@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 import { motion } from "framer-motion";
 import { useLocalStorage } from "usehooks-ts";
-import "./EditListItem.sass";
+import styles from "./EditListItem.module.sass";
 
 export default function EditListItem({
   localStorageKey,
@@ -39,7 +39,7 @@ export default function EditListItem({
       exit={{ opacity: 0, y: 8, height: 0 }}
       transition={{ ease: "easeIn", duration: 0.15 }}
     >
-      <div className="EditListItem">
+      <div className={styles.root}>
         {idx > 0 && (
           <button onClick={(e) => handleMove(e, -1)}>
             <Icon name="arrow-up-circle" size="large" />
