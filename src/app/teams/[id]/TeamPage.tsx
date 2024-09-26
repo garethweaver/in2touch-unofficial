@@ -58,11 +58,11 @@ export default function TeamDetail({ id }: { readonly id: string }) {
           {team.fixtures && team.fixtures.length > 0 ? (
             <FixtureList fixtures={team.fixtures} />
           ) : (
-            <div className="Margin--t">
-              <em className="Color--muted">No team fixtures</em>
+            <div className="util-margin--t">
+              <em className="util-color--muted">No team fixtures</em>
             </div>
           )}
-          <div className="Margin--t">
+          <div className="util-margin--t">
             <ButtonNav
               stacked
               hrefs={[

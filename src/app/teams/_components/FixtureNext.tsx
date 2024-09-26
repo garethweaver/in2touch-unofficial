@@ -1,6 +1,6 @@
 import { Fixture } from "../types";
 import Location from "./Location";
-import "./FixtureNext.sass";
+import styles from "./FixtureNext.module.sass";
 
 function getAllNextOnSameDay(fixtures: Fixture[]): Fixture[] {
   let next: Fixture[] = [];
@@ -18,14 +18,12 @@ function getAllNextOnSameDay(fixtures: Fixture[]): Fixture[] {
 
 function NextGame({ next }: { next: Fixture }) {
   return (
-    <div className="FixtureNext__game">
-      <div className="Flex__bar">
-        <p className="FixtureNext__time">{next.time}</p>
-        <p className="FixtureNext__vs">
-          <strong>{next.vs}</strong>
-        </p>
+    <div className={styles.game}>
+      <div className="util-flex__bar">
+        <p className={styles.time}>{next.time}</p>
+        <p className={styles.vs}>{next.vs}</p>
       </div>
-      <p className="FixtureNext__day">{next.day}</p>
+      <p className={styles.day}>{next.day}</p>
       <Location pitch={next.pitch} leagueName={next.leagueName} />
     </div>
   );
@@ -38,12 +36,14 @@ export default function FixtureNext({
 }) {
   const next = getAllNextOnSameDay(fixtures);
   return (
-    <div className="FixtureNext">
+    <div className={styles.root}>
       {next.length === 0 ? (
-        <em className="Color--muted Text--small">No scheduled fixtures</em>
+        <em className="util-color--muted util-text--small">
+          No scheduled fixtures
+        </em>
       ) : (
         <>
-          <h6 className="Heading__sm">
+          <h6 className="util-heading--sm">
             {next.length > 1 ? next.length : ""} Next:
           </h6>
           {next.map((n, idx) => (

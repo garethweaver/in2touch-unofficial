@@ -58,7 +58,7 @@ export default function LeagueDetail({ id }: { readonly id: string }) {
             </Button>
           )}
           <LeagueTable data={league.teams} />
-          <div className="Margin--t">
+          <div className="util-margin--t">
             <ButtonNav
               stacked
               hrefs={[

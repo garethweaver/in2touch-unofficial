@@ -1,6 +1,6 @@
 import LeagueTeam from "./LeagueTeam";
 import type { LeagueTeam as LeagueTeamType } from "../types";
-import "./LeagueTable.sass";
+import styles from "./LeagueTable.module.sass";
 
 export default function LeagueTable({
   data,
@@ -8,10 +8,10 @@ export default function LeagueTable({
   readonly data: LeagueTeamType[] | undefined;
 }) {
   return (
-    <div className="LeagueTable">
+    <div className={styles.root}>
       {data ? (
         <>
-          <div className="LeagueTable__header Card Color--muted">
+          <div className={`${styles.header} util-card util-color--muted`}>
             <div>PL</div>
             <div>W</div>
             <div>D</div>
@@ -32,7 +32,7 @@ export default function LeagueTable({
           </ul>
         </>
       ) : (
-        <em className="Color--muted">No league data yet</em>
+        <em className="util-color--muted">No league data yet</em>
       )}
     </div>
   );

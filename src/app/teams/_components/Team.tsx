@@ -10,10 +10,10 @@ export default function Team({ data }: { readonly data: Team }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   return (
-    <div className="Team Card">
+    <div className="util-card">
       <Link href={`/teams/${data.id}`}>
-        <div className="Flex__header">
-          <h3 className="Flex__heading">{data.name}</h3>
+        <div className="util-flex__header">
+          <h3 className="util-flex__heading">{data.name}</h3>
           <ButtonToggle callback={setIsEdit} value={isEdit} />
         </div>
         <AnimatePresence>
@@ -28,7 +28,9 @@ export default function Team({ data }: { readonly data: Team }) {
         {data.fixtures ? (
           <FixtureNext fixtures={data.fixtures} />
         ) : (
-          <em className="Color--muted Text--small">No scheduled fixtures</em>
+          <em className="util-color--muted util-text--small">
+            No scheduled fixtures
+          </em>
         )}
       </Link>
     </div>

@@ -6,7 +6,7 @@ import type { Leagues } from "@/app/leagues/types";
 import Team from "@/app/teams/_components/Team";
 import ButtonNav, { type Href } from "@/app/_components/ButtonNav";
 import LeagueBasic from "@/app/leagues/_components/LeagueBasic";
-import "./page.sass";
+import styles from "./page.module.sass";
 
 const links: Href[] = [
   {
@@ -32,7 +32,7 @@ export default function Page() {
   return (
     <main>
       {userTeams.length === 0 && userLeagues.length === 0 && (
-        <div className="Intro">
+        <div className={styles.intro}>
           <h1>Alright, let&apos;s go!</h1>
           <p>
             First you&apos;ll need to find a team that you play for or a league
@@ -43,8 +43,8 @@ export default function Page() {
         </div>
       )}
       {userTeams.length > 0 && (
-        <div className="Margin--b">
-          <h2 className="Flex__icon">
+        <div className="util-margin--b">
+          <h2 className="util-flex__icon">
             <Icon name="user" />
             Your Teams
           </h2>
@@ -60,8 +60,8 @@ export default function Page() {
         </div>
       )}
       {userLeagues.length > 0 && (
-        <div className="Margin--b">
-          <h2 className="Flex__icon">
+        <div className="util-margin--b">
+          <h2 className="util-flex__icon">
             <Icon name="map-pin" />
             Followed Leagues
           </h2>

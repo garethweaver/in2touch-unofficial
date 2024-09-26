@@ -10,7 +10,7 @@ import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
 import Icon from "@/app/_components/Icon";
 import type { League } from "@/app/leagues/types";
 import type { Team } from "@/app/teams/types";
-import "./page.sass";
+import styles from "./page.module.sass";
 
 interface DynamicKey {
   db: string;
@@ -74,14 +74,14 @@ export default function Page({
           transition={{ ease: "easeInOut", duration: 0.2 }}
         >
           <input
-            className="SearchInput"
+            className={styles.search}
             type="search"
             placeholder="Search..."
             id="Search"
             onChange={handleSearch}
             autoFocus
           />
-          <ul className="SearchList">
+          <ul className={styles.list}>
             {cachedData
               .filter((item) => searchFn(item, query))
               .map((item) => {
@@ -89,7 +89,7 @@ export default function Page({
                 return (
                   <li
                     key={item.id}
-                    className={`${isAdded ? `SearchList__item--added` : ""}`}
+                    className={`${isAdded ? styles.itemAdded : ""}`}
                   >
                     <Link href={`/${keys.db}/${item.id}`}>
                       {item.name}

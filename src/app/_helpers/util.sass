@@ -1,0 +1,70 @@
+
+.util-card
+  padding: 15px 10px
+  border-radius: var(--border-radius)
+  background: var(--color-card)
+
+.util-color
+  &--highlight
+    color: var(--color-highlight)
+
+  &--muted
+    color: var(--color-text-muted)
+
+  &--danger
+    color: var(--color-danger)
+
+  &--warning
+    color: var(--color-attention)
+
+  &--success
+    color: var(--color-success)
+
+.util-margin
+  &--t
+    margin-top: 30px
+
+  &--b
+    margin-bottom: 30px
+
+.util-flex
+  &__icon
+    display: flex
+    align-items: center
+
+    svg
+      margin-right: 8px
+
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding-bottom: 10px
+    margin-bottom: 10px
+    border-bottom: 1px solid rgba(black, 0.1)
+
+  &__bar
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    p
+      margin: 0
+
+  &__heading
+    margin: 0
+    text-transform: uppercase
+
+.util-text
+  &--small
+    font-size: var(--font-size-sm !important)
+
+  &--medium
+    font-size: 16px !important
+
+.util-heading--sm
+  font-size: 12px
+  margin: 0 0 5px
+  color: var(--color-text-muted)
+  font-weight: normal

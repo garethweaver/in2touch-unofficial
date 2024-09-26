@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
 import ButtonToggle from "@/app/_components/ButtonToggle";
-import "./LeagueBasic.sass";
+import styles from "./LeagueBasic.module.sass";
 
 function parseName(name: string) {
   let namesArr: undefined | string[];
@@ -13,7 +13,7 @@ function parseName(name: string) {
   }
   return (
     <>
-      <h3 className="Flex__heading">{namesArr?.[0]}</h3>
+      <h3 className="util-flex__heading">{namesArr?.[0]}</h3>
       <span>{namesArr?.slice(1, namesArr?.length).join("-").trim()}</span>
     </>
   );
@@ -22,9 +22,9 @@ function parseName(name: string) {
 export default function LeagueBasic({ data }: { readonly data: League }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   return (
-    <div className="LeagueBasic Card">
+    <div className={`${styles.root} util-card`}>
       <Link href={`/leagues/${data.id}`}>
-        <div className="Flex__header">
+        <div className="util-flex__header">
           <span>{parseName(data.name)}</span>
           <ButtonToggle callback={setIsEdit} value={isEdit} />
         </div>
@@ -37,28 +37,24 @@ export default function LeagueBasic({ data }: { readonly data: League }) {
             />
           )}
         </AnimatePresence>
-        <div className="LeagueBasic__list">
+        <div className={styles.list}>
           {data.teams && data.teams.length > 0 ? (
             <>
-              <h6 className="Heading__sm">Teams:</h6>
+              <h6 className="util-heading--sm">Teams:</h6>
               <ol>
                 {data.teams.map((team, idx: number) => {
                   return (
-                    <li key={team.id} className="LeagueBasic__team">
-                      <span className="LeagueBasic__team-pos">{idx + 1}</span>
-                      <span className="LeagueBasic__team-name">
-                        {team.name}
-                      </span>
-                      <span className="LeagueBasic__team-points">
-                        {team.points}
-                      </span>
+                    <li key={team.id} className={styles.team}>
+                      <span className={styles.pos}>{idx + 1}</span>
+                      <span className={styles.name}>{team.name}</span>
+                      <span className={styles.points}>{team.points}</span>
                     </li>
                   );
                 })}
               </ol>
             </>
           ) : (
-            <em className="Color--muted">No league data yet</em>
+            <em className="util-color--muted">No league data yet</em>
           )}
         </div>
       </Link>

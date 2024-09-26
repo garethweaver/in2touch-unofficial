@@ -5,7 +5,7 @@ import type { Fixture as FixtureType } from "../types";
 function getFixtures(fixtures: FixtureType[], isPast?: boolean) {
   return fixtures.map((fixture, i) => {
     return (
-      <li key={i} className="Card">
+      <li key={i} className="util-card">
         <Fixture data={fixture} isPast={!!isPast} />
       </li>
     );
@@ -22,8 +22,8 @@ export default function FixtureList({
   return (
     <div>
       {past.length > 0 && (
-        <div className="Margin--t">
-          <h2 className="Flex__icon">
+        <div className="util-margin--t">
+          <h2 className="util-flex__icon">
             <Icon name="check-square" />
             Past Fixtures
           </h2>
@@ -31,8 +31,8 @@ export default function FixtureList({
         </div>
       )}
       {future.length > 0 && (
-        <div className="Margin--t">
-          <h2 className="Flex__icon">
+        <div className="util-margin--t">
+          <h2 className="util-flex__icon">
             <Icon name="calendar" />
             Upcoming Fixtures
           </h2>
@@ -40,7 +40,7 @@ export default function FixtureList({
         </div>
       )}
       {future.length === 0 && past.length === 0 && (
-        <div className="Margin--t">
+        <div className="util-margin--t">
           <em className="Color--muted">No fixture data</em>
         </div>
       )}

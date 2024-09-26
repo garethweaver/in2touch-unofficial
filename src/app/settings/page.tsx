@@ -4,7 +4,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
 import Button from "@/app/_components/Button";
-import "./page.sass";
+import styles from "./page.module.sass";
 
 const themes: string[] = [
   "Default",
@@ -54,9 +54,9 @@ export default function Page() {
   };
 
   return (
-    <main>
-      <h1 className="Margin--b">Settings</h1>
-      <section className="Section">
+    <main className={styles.root}>
+      <h1 className="util-margin--b">Settings</h1>
+      <section>
         <h2>Add to homescreen</h2>
         <p>
           You can follow{" "}
@@ -88,14 +88,14 @@ export default function Page() {
           &lsquo;home screen&rsquo;.
         </p>
       </section>
-      <section className="Section">
+      <section>
         <h2>Theme</h2>
-        <ul className="ThemeButtons">
+        <ul className={styles.themeButtons}>
           {themes.map((theme, idx) => (
             <li key={idx}>
               <button
-                className={`ThemeButton--${idx + 1} ${
-                  settings.theme === idx + 1 ? "ThemeButton--selected" : ""
+                className={`themeButton--${idx + 1} ${
+                  settings.theme === idx + 1 ? styles.themeButtonSelected : ""
                 }`}
                 onClick={() => setTheme(idx + 1)}
               >
@@ -106,7 +106,7 @@ export default function Page() {
           ))}
         </ul>
       </section>
-      <section className="Section">
+      <section>
         <h2>Free to use!</h2>
         <p>
           This is a free to use app created by{" "}
@@ -136,11 +136,11 @@ export default function Page() {
           if you have any questions or comments.
         </p>
       </section>
-      <section className="Section">
+      <section>
         <h2>Latest database update</h2>
         <p>{getDate(fbCache.updatedAt)}</p>
       </section>
-      <section className="Section">
+      <section>
         <h2>
           Version number: <span>{process.env.version}</span>
         </h2>

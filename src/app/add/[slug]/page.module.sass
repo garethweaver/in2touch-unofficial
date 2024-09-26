@@ -1,8 +1,8 @@
-.SearchList
+.list
   li:nth-child(even)
     background: rgba(white, 0.06)
 
-  &__item--added a
+  .itemAdded a
     color: var(--color-highlight)
 
   a
@@ -15,7 +15,7 @@
     flex-shrink: 0
     margin-left: 15px
 
-.SearchInput
+.search
   top: 20px
   border-radius: var(--border-radius)
   border: 1px solid var(--color-highlight)
@@ -25,6 +25,17 @@
   padding: 10px
   margin-bottom: 10px
   color: white
+
+  &:focus
+    outline: 1px solid white
+
+  &::-webkit-search-cancel-button
+    -webkit-appearance: none
+    background-color: white
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>")
+    background-size: 20px 20px
+    height: 20px
+    width: 20px
 
   &::placeholder
     color: var(--color-highlight)

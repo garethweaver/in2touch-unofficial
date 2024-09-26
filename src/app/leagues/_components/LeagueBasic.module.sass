@@ -1,0 +1,31 @@
+.root
+  h4
+    margin: 0 0 5px
+  li
+    padding: 2px 5px
+
+.list
+  font-size: var(--font-size-sm)
+  li:nth-child(even)
+    background: rgba(white, 0.06)
+
+.team
+  display: flex
+
+.name
+  flex-grow: 1
+  margin: 0 10px
+
+.team:nth-child(1),
+.team:nth-child(2),
+.team:nth-child(3)
+  .pos
+    color: var(--color-attention) !important
+    font-weight: bold
+
+.pos
+  color: var(--color-text-muted)
+
+.points
+  color: var(--color-text-muted)
+  font-weight: bold

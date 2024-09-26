@@ -1,0 +1,41 @@
+.root
+  section
+    --color-links: var(--color-highlight)
+    padding-bottom: 30px
+    p
+      line-height: 1.4
+    a
+      text-decoration: underline
+    h2 span
+      color: white
+
+.themeButtons
+  display: grid
+  grid-template-columns: 50% 50%
+
+  button
+    background: none
+    border: none
+    padding: 0
+    margin: 0
+    color: var(--color-text-default)
+    font-family: var(--font-family-mono)
+    display: flex
+    align-items: center
+    text-transform: uppercase
+    cursor: pointer
+    width: 100%
+    font-size: var(--font-size-sm)
+
+    span
+      display: inline-block
+      height: 50px
+      width: 50px
+      border-radius: 10px
+      margin-right: 5px
+      border: 1px solid black
+      margin-right: 10px
+      transition: border-color 0.4s
+
+  .themeButtonSelected span
+    border-color: white

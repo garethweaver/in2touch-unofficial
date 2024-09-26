@@ -10,7 +10,7 @@ export default function Location({
       {pitch && pitch}
       {pitch && leagueName && " - "}
       {leagueName && (
-        <span className="Color--muted">
+        <span className="util-color--muted">
           {leagueName.substring(0, 25)}&hellip;
         </span>
       )}
