@@ -1,6 +1,7 @@
+$button-offset: 10px
+
 .Header
   background: var(--color-header)
-  padding: 10px
   height: 60px
   position: fixed
   top: 0
@@ -17,25 +18,28 @@
   user-select: none
 
   @media (min-width: 400px)
-    padding: 10px 20px
+    padding: $button-offset
 
   &__left
     flex-grow: 1
 
-  // TODO: make a tags bigger for clicks
   a
     display: flex
     align-items: center
     height: 100%
     cursor: pointer
     width: fit-content
+    padding: $button-offset
+
+  &__logo
+    padding: $button-offset
 
   &__loading
     display: flex
     align-items: center
     animation: spin 1000ms linear infinite
     color: var(--color-highlight)
-    margin-right: 15px
+    margin-right: 10px
 
   .header-icon
     margin-right: 6px
@@ -43,6 +47,7 @@
   button
     display: flex
     align-items: center
+    padding: $button-offset
 
 @keyframes spin
   from
