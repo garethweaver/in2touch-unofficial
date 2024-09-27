@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Shows gametimes and league tables from the In2Touch website",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
+    background_color: "#ffffff",
     theme_color: "#000000",
     prefer_related_applications: false,
     icons: [
