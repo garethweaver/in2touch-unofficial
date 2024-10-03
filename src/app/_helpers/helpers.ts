@@ -20,10 +20,11 @@ export const sortNameLowerByAlpha = (a: SortItem, b: SortItem): number => {
   return 0;
 };
 
-type dbItem = Team | League;
-
-const fetchData = (item: dbItem, dbPath: string): Promise<dbItem> => {
-  return new Promise<dbItem>((resolve, reject) => {
+const fetchData = <T extends Team | League>(
+  item: T,
+  dbPath: string,
+): Promise<T> => {
+  return new Promise<T>((resolve, reject) => {
     const dbRef = ref(database, `${dbPath}/${item.id}`);
     get(dbRef)
       .then((snapshot) => {
@@ -74,7 +75,7 @@ export const useCompareAndUpateCache = (
                   const reqs = userTeams.map((team: Team, idx: number) =>
                     fetchData(team, "team-data"),
                   );
-                  const response = (await Promise.all(reqs)) as Teams;
+                  const response = await Promise.all(reqs);
                   setUserTeams(response);
                   break;
                 }
@@ -84,7 +85,7 @@ export const useCompareAndUpateCache = (
                   const reqs = userLeagues.map((league: League, idx: number) =>
                     fetchData(league, "leagues"),
                   );
-                  const response = (await Promise.all(reqs)) as Leagues;
+                  const response = await Promise.all(reqs);
                   setUserLeagues(response);
                   break;
                 }
