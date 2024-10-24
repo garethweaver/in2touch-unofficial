@@ -17,7 +17,11 @@ export const metadata: Metadata = {
     "Find and follow teams to show gametimes and league tables from the In2Touch website",
 };
 
-export default async ({ children }: { readonly children: React.ReactNode }) => {
+export default async function Layout({
+  children,
+}: {
+  readonly children: React.ReactNode;
+}) {
   const theme = getCookie("theme", { cookies });
   return (
     <html lang="en">
@@ -31,4 +35,4 @@ export default async ({ children }: { readonly children: React.ReactNode }) => {
       </body>
     </html>
   );
-};
+}
