@@ -50,7 +50,7 @@ export default function Fixture({
       <p>{data.day}</p>
       {data.grading && (
         <p>
-          <em className="util-color--muted">
+          <em className="util-flex__icon util-color--muted">
             <Icon name="shuffle" size="small" className={styles.gradingIcon} />
             Grading game
           </em>
