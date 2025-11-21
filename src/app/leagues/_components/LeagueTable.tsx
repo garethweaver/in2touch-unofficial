@@ -7,6 +7,8 @@ export default function LeagueTable({
 }: {
   readonly data: LeagueTeamType[] | undefined;
 }) {
+  const hasBonusPoints = data?.[0]?.pointsBonus !== undefined;
+  const hasPointsDifference = data?.[0]?.pointsDifference !== undefined;
   return (
     <div className={styles.root}>
       {data ? (
@@ -18,7 +20,8 @@ export default function LeagueTable({
             <div>L</div>
             <div>F</div>
             <div>A</div>
-            <div>BP</div>
+            {hasBonusPoints && <div>BP</div>}
+            {hasPointsDifference && <div>PD</div>}
             <div>P</div>
           </div>
           <ul>

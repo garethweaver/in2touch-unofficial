@@ -23,4 +23,5 @@ export interface Fixture {
   timestamp: number;
   vs: string;
   vsId: string;
+  state?: string;
 }

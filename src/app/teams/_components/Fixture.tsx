@@ -56,6 +56,14 @@ export default function Fixture({
           </em>
         </p>
       )}
+      {data.state === "forfeit" && (
+        <p>
+          <em className="util-flex__icon util-color--muted">
+            <Icon name="alert-triangle" size="small" className={styles.gradingIcon} />
+            Game Forfeit
+          </em>
+        </p>
+      )}
       {!isPast && <Location pitch={data.pitch} leagueName={data.leagueName} />}
     </Link>
   );

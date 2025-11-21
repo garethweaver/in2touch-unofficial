@@ -62,18 +62,33 @@ export default function LeagueDetail({ id }: { readonly id: string }) {
             <ButtonNav
               stacked
               hrefs={[
-                {
-                  text: "View fixtures on In2Touch",
-                  href: league.fixturesUrl,
-                  icon: "arrow-up-right",
-                  external: true,
-                },
-                {
-                  text: "View standings on In2Touch",
-                  href: league.standingUrl,
-                  icon: "arrow-up-right",
-                  external: true,
-                },
+                ...(
+                  league.fixturesUrl ?
+                    [{
+                      text: `View fixtures on ${process.env.NEXT_PUBLIC_APPNAME}`,
+                      href: league.fixturesUrl,
+                      icon: "arrow-up-right",
+                      external: true,
+                    }] : []
+                ),
+                ...(
+                  league.standingUrl ?
+                    [{
+                      text: `View standings on ${process.env.NEXT_PUBLIC_APPNAME}`,
+                      href: league.standingUrl,
+                      icon: "arrow-up-right",
+                      external: true,
+                    }] : []
+                ),
+                ...(
+                  league.leagueUrl ?
+                    [{
+                      text: `View league on ${process.env.NEXT_PUBLIC_APPNAME}`,
+                      href: league.leagueUrl,
+                      icon: "arrow-up-right",
+                      external: true,
+                    }] : []
+                ),
               ]}
             />
           </div>

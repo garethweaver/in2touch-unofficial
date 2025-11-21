@@ -20,7 +20,7 @@ export default function Header({ loading }: { readonly loading: boolean }) {
       {pathname === "/" ? (
         <>
           <div className={styles.left}>
-            <h1 className={styles.logo}>In2Touch Unofficial</h1>
+            <h1 className={styles.logo}>{process.env.NEXT_PUBLIC_APPNAME} Unofficial</h1>
           </div>
           {loading && <HeaderLoader />}
           <Link href="/settings">

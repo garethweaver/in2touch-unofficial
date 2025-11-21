@@ -67,7 +67,7 @@ export default function TeamDetail({ id }: { readonly id: string }) {
               stacked
               hrefs={[
                 {
-                  text: "View profile on In2Touch",
+                  text: `View profile on ${process.env.NEXT_PUBLIC_APPNAME}`,
                   href: team.profileUrl,
                   icon: "arrow-up-right",
                   external: true,

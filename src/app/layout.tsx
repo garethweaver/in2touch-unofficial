@@ -12,9 +12,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "In2Touch Unofficial",
+  title: `${process.env.NEXT_PUBLIC_APPNAME} Unofficial`,
   description:
-    "Find and follow teams to show gametimes and league tables from the In2Touch website",
+    `Find and follow teams to show gametimes and league tables from the ${process.env.NEXT_PUBLIC_APPNAME} website`,
 };
 
 export default async function Layout({

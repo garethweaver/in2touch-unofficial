@@ -1,11 +1,12 @@
 export type Leagues = League[];
 
 export interface League {
-  fixturesUrl: string;
   id: string;
   name: string;
   nameLowercased: string;
-  standingUrl: string;
+  standingUrl?: string;
+  fixturesUrl?: string;
+  leagueUrl?: string;
   teams?: LeagueTeam[];
 }
 
@@ -15,10 +16,11 @@ export interface LeagueTeam {
   lost: string;
   name: string;
   played: string;
-  points: string;
-  pointsAgainst: string;
-  pointsBonus: string;
-  pointsFor: string;
+  points: number;
+  pointsAgainst: number;
+  pointsBonus?: number;
+  pointsDifference?: number;
+  pointsFor: number;
   profileUrl: string;
-  won: string;
+  won: number;
 }
