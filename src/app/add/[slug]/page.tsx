@@ -1,6 +1,6 @@
 "use client";
 import { get, ref } from "firebase/database";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
@@ -28,12 +28,13 @@ const searchFn = (t: { nameLowercased: string }, q: string) => {
 export default function Page({
   params,
 }: {
-  readonly params: { slug: string };
+  readonly params: Promise<{ slug: string }>;
 }) {
+  const { slug } = use(params);
   const keys: DynamicKey = {
-    db: params.slug,
-    cache: `all${params.slug[0].toUpperCase() + params.slug.slice(1)}`,
-    userSelected: `user${params.slug[0].toUpperCase() + params.slug.slice(1)}`,
+    db: slug,
+    cache: `all${slug[0].toUpperCase() + slug.slice(1)}`,
+    userSelected: `user${slug[0].toUpperCase() + slug.slice(1)}`,
   };
 
   const [localStorageCache] = useLocalStorage<List>(keys.userSelected, [], {
