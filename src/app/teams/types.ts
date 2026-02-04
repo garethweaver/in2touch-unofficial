@@ -15,7 +15,6 @@ export interface TeamBasic {
 
 export interface Fixture {
   day: string;
-  grading: boolean;
   leagueName: string;
   pitch: string;
   result: string;
@@ -23,5 +22,7 @@ export interface Fixture {
   timestamp: number;
   vs: string;
   vsId: string;
+  round?: string;
+  grading?: boolean;
   state?: string;
 }
