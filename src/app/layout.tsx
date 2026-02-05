@@ -1,5 +1,4 @@
 import type { Viewport, Metadata } from "next";
-import { cookies } from "next/headers";
 import { getCookie } from "cookies-next";
 import { roboto, inconsolata } from "./fonts";
 import ThemeWrapper from "@/app/_components/ThemeWrapper";
@@ -13,8 +12,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_APPNAME} Unofficial`,
-  description:
-    `Find and follow teams to show gametimes and league tables from the ${process.env.NEXT_PUBLIC_APPNAME} website`,
+  description: `Find and follow teams to show gametimes and league tables from the ${process.env.NEXT_PUBLIC_APPNAME} website`,
 };
 
 export default async function Layout({
@@ -22,7 +20,7 @@ export default async function Layout({
 }: {
   readonly children: React.ReactNode;
 }) {
-  const theme = getCookie("theme", { cookies });
+  const theme = getCookie("theme");
   return (
     <html lang="en">
       <body
