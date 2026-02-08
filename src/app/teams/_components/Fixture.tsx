@@ -33,6 +33,15 @@ export default function Fixture({
   readonly data: Fixture;
   readonly isPast: boolean;
 }) {
+  if (data.type === "bye") {
+    return (
+      <div className={styles.root}>
+        <p className={styles.bye}>Bye</p>
+        <p>{data.day}</p>
+      </div>
+    );
+  }
+
   return (
     <Link className={styles.root} href={`/teams/${data.vsId}`}>
       {isPast && <h6 className="util-heading--sm">Result:</h6>}
@@ -59,7 +68,11 @@ export default function Fixture({
       {data.state === "forfeit" && (
         <p>
           <em className="util-flex__icon util-color--muted">
-            <Icon name="alert-triangle" size="small" className={styles.gradingIcon} />
+            <Icon
+              name="alert-triangle"
+              size="small"
+              className={styles.gradingIcon}
+            />
             Game Forfeit
           </em>
         </p>

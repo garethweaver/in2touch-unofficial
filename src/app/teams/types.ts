@@ -13,16 +13,27 @@ export interface TeamBasic {
   profileUrl: string;
 }
 
-export interface Fixture {
+export interface BaseFixture {
+  date: string;
   day: string;
+  time: string;
+  timestamp: number;
+}
+
+export interface Bye extends BaseFixture {
+  type: "bye";
+}
+
+export interface Match extends BaseFixture {
   leagueName: string;
   pitch: string;
   result: string;
-  time: string;
-  timestamp: number;
   vs: string;
   vsId: string;
   round?: string;
   grading?: boolean;
   state?: string;
+  type?: "match";
 }
+
+export type Fixture = Match | Bye;

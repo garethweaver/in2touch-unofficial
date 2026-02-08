@@ -17,6 +17,15 @@ function getAllNextOnSameDay(fixtures: Fixture[]): Fixture[] {
 }
 
 function NextGame({ next }: { next: Fixture }) {
+  if (next.type === "bye") {
+    return (
+      <div className={styles.root}>
+        <p className={styles.bye}>Bye</p>
+        <p className={styles.day}>{next.day}</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.game}>
       <div className="util-flex__bar">
