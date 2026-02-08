@@ -36,6 +36,7 @@ export default function Fixture({
   if (data.type === "bye") {
     return (
       <div className={styles.root}>
+        {data.round && <h6 className="util-heading--sm">{data.round}</h6>}
         <p className={styles.bye}>Bye</p>
         <p>{data.day}</p>
       </div>
@@ -44,7 +45,12 @@ export default function Fixture({
 
   return (
     <Link className={styles.root} href={`/teams/${data.vsId}`}>
-      {isPast && <h6 className="util-heading--sm">Result:</h6>}
+      {(data.round || isPast) && (
+        <h6 className="util-heading--sm">
+          {data.round && `${data.round} `}
+          {isPast && "Result:"}
+        </h6>
+      )}
       <div className="util-flex__bar">
         {isPast ? (
           <p className={styles.result}>{getResult(data.result)}</p>

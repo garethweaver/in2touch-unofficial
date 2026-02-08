@@ -18,6 +18,7 @@ export interface BaseFixture {
   day: string;
   time: string;
   timestamp: number;
+  round?: string;
 }
 
 export interface Bye extends BaseFixture {
@@ -30,7 +31,6 @@ export interface Match extends BaseFixture {
   result: string;
   vs: string;
   vsId: string;
-  round?: string;
   grading?: boolean;
   state?: string;
   type?: "match";
