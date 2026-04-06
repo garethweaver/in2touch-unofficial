@@ -7,6 +7,7 @@ import Team from "@/app/teams/_components/Team";
 import ButtonNav, { type Href } from "@/app/_components/ButtonNav";
 import LeagueBasic from "@/app/leagues/_components/LeagueBasic";
 import styles from "./page.module.sass";
+import Link from "next/link";
 
 const links: Href[] = [
   {
@@ -39,6 +40,12 @@ export default function Page() {
             to follow. We&apos;ll remember your preferences for future visits.
             You can change the theme or reset the app on the settings page as
             well as finding how to add the app to your homescreen.
+          </p>
+          <p>
+            <Link href="/settings" className="util-flex__icon">
+              <Icon name="settings" />
+              How to add to homescreen
+            </Link>
           </p>
         </div>
       )}
