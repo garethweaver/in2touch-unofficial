@@ -1,4 +1,6 @@
+"use client";
 import { Fixture } from "../types";
+import Time from "@/app/_components/Time";
 import Location from "./Location";
 import styles from "./FixtureNext.module.sass";
 
@@ -29,7 +31,9 @@ function NextGame({ next }: { next: Fixture }) {
   return (
     <div className={styles.game}>
       <div className="util-flex__bar">
-        <p className={styles.time}>{next.time}</p>
+        <p className={styles.time}>
+          <Time time={next.time} />
+        </p>
         <p className={styles.vs}>{next.vs}</p>
       </div>
       <p className={styles.day}>{next.day}</p>

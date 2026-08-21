@@ -4,17 +4,11 @@ import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
 import Button from "@/app/_components/Button";
+import ThemeSelector from "@/app/_components/ThemeSelector";
+import TimeFormatSelector, {
+  TimeFormat,
+} from "@/app/_components/TimeFormatSelector";
 import styles from "./page.module.sass";
-
-const themes: string[] = [
-  "Default",
-  "Midnight",
-  "Candyfloss",
-  "Eagles",
-  "Synthwave",
-  "Triple-threat",
-  "High-contrast",
-];
 
 const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
@@ -24,7 +18,12 @@ export default function Page() {
 
   const [settings, setSettings] = useLocalStorage<{
     theme: number;
-  }>("userSettings", { theme: 1 }, { initializeWithValue: false });
+    timeFormat: TimeFormat;
+  }>(
+    "userSettings",
+    { theme: 1, timeFormat: "24h" },
+    { initializeWithValue: false },
+  );
 
   const [fbCache] = useLocalStorage<FbCache | { updatedAt: undefined }>(
     "fbCache",
@@ -34,11 +33,18 @@ export default function Page() {
     { initializeWithValue: false },
   );
 
-  const setTheme = (idx: number) => {
+  const updateSetting = <K extends keyof typeof settings>(
+    key: K,
+    value: (typeof settings)[K],
+  ) => {
     const expires = new Date(Date.now() + 86400 * 1000 * 365 * 5);
-    setCookie("theme", idx, { expires });
-    setSettings({ ...settings, theme: idx });
+    setCookie(key, value, { expires });
+    setSettings({ ...settings, [key]: value });
   };
+
+  const setTheme = (idx: number) => updateSetting("theme", idx);
+  const setTimeFormat = (format: TimeFormat) =>
+    updateSetting("timeFormat", format);
 
   const clearCache = () => {
     setDecached(true);
@@ -46,8 +52,9 @@ export default function Page() {
     localStorage.removeItem("userLeagues");
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
-    setSettings({ theme: 1 });
+    setSettings({ theme: 1, timeFormat: "24h" });
     deleteCookie("theme");
+    deleteCookie("timeFormat");
     setTimeout(() => {
       setDecached(false);
     }, 2000);
@@ -90,21 +97,17 @@ export default function Page() {
       </section>
       <section>
         <h2>Theme</h2>
-        <ul className={styles.themeButtons}>
-          {themes.map((theme, idx) => (
-            <li key={idx}>
-              <button
-                className={`themeButton--${idx + 1} ${
-                  settings.theme === idx + 1 ? styles.themeButtonSelected : ""
-                }`}
-                onClick={() => setTheme(idx + 1)}
-              >
-                <span />
-                {theme}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <ThemeSelector
+          selectedTheme={settings.theme}
+          onThemeChange={setTheme}
+        />
+      </section>
+      <section>
+        <h2>Time format</h2>
+        <TimeFormatSelector
+          selectedFormat={settings.timeFormat}
+          onFormatChange={setTimeFormat}
+        />
       </section>
       <section>
         <h2>Free to use!</h2>

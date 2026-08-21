@@ -20,6 +20,16 @@ export const sortNameLowerByAlpha = (a: SortItem, b: SortItem): number => {
   return 0;
 };
 
+export const formatTime = (time: string, use12Hour: boolean): string => {
+  if (!use12Hour) return time;
+
+  const [hours, minutes] = time.split(":").map(Number);
+  const period = hours >= 12 ? "pm" : "am";
+  const displayHours = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+
+  return `${displayHours}:${minutes.toString().padStart(2, "0")}${period}`;
+};
+
 const fetchData = <T extends Team | League>(
   item: T,
   dbPath: string,

@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import Icon from "@/app/_components/Icon";
 import Location from "./Location";
+import Time from "@/app/_components/Time";
 import type { Fixture } from "../types";
 import styles from "./Fixture.module.sass";
 
@@ -55,7 +57,9 @@ export default function Fixture({
         {isPast ? (
           <p className={styles.result}>{getResult(data.result)}</p>
         ) : (
-          <p className={styles.time}>{data.time}</p>
+          <p className={styles.time}>
+            <Time time={data.time} />
+          </p>
         )}
         <div className={styles.vs}>
           <strong>{data.vs}</strong>
