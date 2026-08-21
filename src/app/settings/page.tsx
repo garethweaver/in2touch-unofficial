@@ -1,21 +1,19 @@
 "use client";
-import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
-import Button from "@/app/_components/Button";
-import ThemeSelector from "@/app/_components/ThemeSelector";
+import ThemeSelector from "./_components/ThemeSelector";
 import TimeFormatSelector, {
   TimeFormat,
-} from "@/app/_components/TimeFormatSelector";
+} from "./_components/TimeFormatSelector";
+import ShareButton from "./_components/ShareButton";
+import ClearCacheButton from "./_components/ClearCacheButton";
 import styles from "./page.module.sass";
 
 const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
 
 export default function Page() {
-  const [decached, setDecached] = useState<boolean>(false);
-
   const [settings, setSettings] = useLocalStorage<{
     theme: number;
     timeFormat: TimeFormat;
@@ -45,20 +43,6 @@ export default function Page() {
   const setTheme = (idx: number) => updateSetting("theme", idx);
   const setTimeFormat = (format: TimeFormat) =>
     updateSetting("timeFormat", format);
-
-  const clearCache = () => {
-    setDecached(true);
-    localStorage.removeItem("userTeams");
-    localStorage.removeItem("userLeagues");
-    localStorage.removeItem("allTeams");
-    localStorage.removeItem("allLeagues");
-    setSettings({ theme: 1, timeFormat: "24h" });
-    deleteCookie("theme");
-    deleteCookie("timeFormat");
-    setTimeout(() => {
-      setDecached(false);
-    }, 2000);
-  };
 
   return (
     <main className={styles.root}>
@@ -110,6 +94,10 @@ export default function Page() {
         />
       </section>
       <section>
+        <h2>Share this app</h2>
+        <ShareButton />
+      </section>
+      <section>
         <h2>Free to use!</h2>
         <p>
           This is a free to use app created by{" "}
@@ -147,15 +135,7 @@ export default function Page() {
         <h2>
           Version number: <span>{process.env.version}</span>
         </h2>
-        {decached ? (
-          <Button icon="check" faux>
-            Cache dropped!
-          </Button>
-        ) : (
-          <Button icon="zap" onClick={clearCache}>
-            Clear local cache
-          </Button>
-        )}
+        <ClearCacheButton />
       </section>
     </main>
   );

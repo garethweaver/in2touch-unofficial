@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "@/app/_components/Button";
 import styles from "./TimeFormatSelector.module.sass";
 
 export type TimeFormat = "12h" | "24h";
