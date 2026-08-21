@@ -4,7 +4,7 @@ import styles from "./TimeFormatSelector.module.sass";
 export type TimeFormat = "12h" | "24h";
 
 export default function TimeFormatSelector({
-  selectedFormat,
+  selectedFormat = "24h",
   onFormatChange,
 }: {
   readonly selectedFormat: TimeFormat;
