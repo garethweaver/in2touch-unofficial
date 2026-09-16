@@ -4,6 +4,17 @@
   border-radius: var(--border-radius)
   background: var(--color-card)
 
+  &--spaced
+    margin-bottom: 40px
+    position: relative
+    &:after
+      content: ""
+      width: 100%
+      left: 0
+      position: absolute
+      bottom: -20px
+      border-bottom: 1px solid rgba(white, 0.15)
+
 .util-color
   &--highlight
     color: var(--color-highlight)

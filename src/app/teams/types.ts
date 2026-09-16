@@ -4,6 +4,7 @@ export type TeamsBasic = TeamBasic[];
 export interface Team extends TeamBasic {
   fixtures: Fixture[];
   fixturesHash: string;
+  spaced?: boolean;
 }
 
 export interface TeamBasic {

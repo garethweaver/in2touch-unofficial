@@ -10,7 +10,7 @@ export default function Team({ data }: { readonly data: Team }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   return (
-    <div className="util-card">
+    <div className={`util-card ${data.spaced ? "util-card--spaced" : ""}`}>
       <Link href={`/teams/${data.id}`}>
         <div className="util-flex__header">
           <h3 className="util-flex__heading">{data.name}</h3>

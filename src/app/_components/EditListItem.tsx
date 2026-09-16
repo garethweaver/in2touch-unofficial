@@ -12,11 +12,12 @@ export default function EditListItem({
   readonly id: string;
   readonly callback: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [items, setItems] = useLocalStorage<{ id: string }[]>(
+  const [items, setItems] = useLocalStorage<{ id: string; spaced?: boolean }[]>(
     localStorageKey,
     [],
   );
   const idx = items.findIndex((item) => item.id === id);
+  const isSpaced = items[idx]?.spaced ?? false;
 
   const handleMove = (e: React.MouseEvent<HTMLElement>, dir: number) => {
     e.preventDefault();
@@ -31,6 +32,15 @@ export default function EditListItem({
     setItems(items.toSpliced(idx, 1));
     callback(false);
   };
+  const handleToggleSpacing = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setItems(
+      items.map((item, i) =>
+        i === idx ? { ...item, spaced: !isSpaced } : item,
+      ),
+    );
+  };
 
   return (
     <motion.div
@@ -40,6 +50,11 @@ export default function EditListItem({
       transition={{ ease: "easeIn", duration: 0.15 }}
     >
       <div className={styles.root}>
+        {localStorageKey === "userTeams" && (
+          <button onClick={handleToggleSpacing}>
+            <Icon name="align-justify" size="large" />
+          </button>
+        )}
         {idx > 0 && (
           <button onClick={(e) => handleMove(e, -1)}>
             <Icon name="arrow-up-circle" size="large" />
