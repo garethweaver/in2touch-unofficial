@@ -1,12 +1,12 @@
 "use client";
 import { useLocalStorage } from "usehooks-ts";
 import { formatTime } from "@/app/_helpers/helpers";
-import { TimeFormat } from "@/app/settings/_components/TimeFormatSelector";
+import { UserSettings, defaultUserSettings } from "@/app/settings/types";
 
 export default function Time({ time }: { readonly time: string }) {
-  const [settings] = useLocalStorage<{ timeFormat: TimeFormat }>(
+  const [settings] = useLocalStorage<UserSettings>(
     "userSettings",
-    { timeFormat: "24h" },
+    defaultUserSettings,
     { initializeWithValue: false },
   );
 

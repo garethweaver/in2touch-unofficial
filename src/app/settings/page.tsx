@@ -2,6 +2,7 @@
 import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
+import { UserSettings, defaultUserSettings } from "./types";
 import ThemeSelector from "./_components/ThemeSelector";
 import TimeFormatSelector, {
   TimeFormat,
@@ -14,12 +15,9 @@ const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
 
 export default function Page() {
-  const [settings, setSettings] = useLocalStorage<{
-    theme: number;
-    timeFormat: TimeFormat;
-  }>(
+  const [settings, setSettings] = useLocalStorage<UserSettings>(
     "userSettings",
-    { theme: 1, timeFormat: "24h" },
+    defaultUserSettings,
     { initializeWithValue: false },
   );
 

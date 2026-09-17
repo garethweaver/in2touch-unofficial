@@ -2,17 +2,14 @@
 import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { deleteCookie } from "cookies-next";
-import { TimeFormat } from "./TimeFormatSelector";
+import { UserSettings, defaultUserSettings } from "@/app/settings/types";
 import Button from "@/app/_components/Button";
 
 export default function ClearCacheButton() {
   const [cleared, setCleared] = useState<boolean>(false);
-  const [, setSettings] = useLocalStorage<{
-    theme: number;
-    timeFormat: TimeFormat;
-  }>(
+  const [, setSettings] = useLocalStorage<UserSettings>(
     "userSettings",
-    { theme: 1, timeFormat: "24h" },
+    defaultUserSettings,
     { initializeWithValue: false },
   );
 
@@ -22,7 +19,7 @@ export default function ClearCacheButton() {
     localStorage.removeItem("userLeagues");
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
-    setSettings({ theme: 1, timeFormat: "24h" });
+    setSettings(defaultUserSettings);
     deleteCookie("theme");
     deleteCookie("timeFormat");
     setTimeout(() => {

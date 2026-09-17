@@ -1,6 +1,7 @@
 import Icon from "./Icon";
 import { motion } from "framer-motion";
 import { useLocalStorage } from "usehooks-ts";
+import { UserSettings, defaultUserSettings } from "@/app/settings/types";
 import styles from "./EditListItem.module.sass";
 
 export default function EditListItem({
@@ -12,12 +13,17 @@ export default function EditListItem({
   readonly id: string;
   readonly callback: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [items, setItems] = useLocalStorage<{ id: string; spaced?: boolean }[]>(
+  const [items, setItems] = useLocalStorage<{ id: string }[]>(
     localStorageKey,
     [],
   );
+  const [userSettings, setUserSettings] = useLocalStorage<UserSettings>(
+    "userSettings",
+    defaultUserSettings,
+    { initializeWithValue: false },
+  );
   const idx = items.findIndex((item) => item.id === id);
-  const isSpaced = items[idx]?.spaced ?? false;
+  const isSpaced = userSettings?.teamDisplaySettings?.[id]?.spaced ?? false;
 
   const handleMove = (e: React.MouseEvent<HTMLElement>, dir: number) => {
     e.preventDefault();
@@ -35,11 +41,13 @@ export default function EditListItem({
   const handleToggleSpacing = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setItems(
-      items.map((item, i) =>
-        i === idx ? { ...item, spaced: !isSpaced } : item,
-      ),
-    );
+    setUserSettings({
+      ...userSettings,
+      teamDisplaySettings: {
+        ...userSettings.teamDisplaySettings,
+        [id]: { spaced: !isSpaced },
+      },
+    });
   };
 
   return (
