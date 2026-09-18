@@ -1,5 +1,5 @@
 import LeagueTeam from "./LeagueTeam";
-import type { LeagueTeam as LeagueTeamType } from "../types";
+import type { LeagueTeam as LeagueTeamType } from "../_utils/types";
 import styles from "./LeagueTable.module.sass";
 
 export default function LeagueTable({

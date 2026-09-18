@@ -1,19 +1,16 @@
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { database } from "@/app/_firebase/config";
 import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import ButtonNav from "@/app/_components/ButtonNav";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
-import type { League, Leagues } from "@/app/leagues/types";
+import { useUserLeagues } from "@/app/leagues/_utils/useUserLeagues";
+import type { League } from "@/app/leagues/_utils/types";
 
 export default function LeagueDetail({ id }: { readonly id: string }) {
-  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
-    "userLeagues",
-    [],
-  );
+  const [userLeagues, setUserLeagues] = useUserLeagues();
   const cachedLeague = userLeagues.find((l) => id === l.id);
   const [league, setLeague] = useState<League | undefined>(cachedLeague);
   const [justAdded, setJustAdded] = useState<boolean>(false);

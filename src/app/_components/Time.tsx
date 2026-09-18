@@ -1,6 +1,6 @@
 "use client";
 import { formatTime } from "@/app/_helpers/helpers";
-import { useUserSettings } from "@/app/settings/useUserSettings";
+import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
 
 export default function Time({ time }: { readonly time: string }) {
   const [settings] = useUserSettings();

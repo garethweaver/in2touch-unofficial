@@ -2,8 +2,8 @@
 import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
-import { UserSettings } from "./types";
-import { useUserSettings } from "./useUserSettings";
+import { UserSettings } from "./_utils/types";
+import { useUserSettings } from "./_utils/useUserSettings";
 import ThemeSelector from "./_components/ThemeSelector";
 import TimeFormatSelector, {
   TimeFormat,

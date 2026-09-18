@@ -8,8 +8,8 @@ import Loader from "@/app/_components/Loader";
 import { database } from "@/app/_firebase/config";
 import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
 import Icon from "@/app/_components/Icon";
-import type { League } from "@/app/leagues/types";
-import type { Team } from "@/app/teams/types";
+import type { League } from "@/app/leagues/_utils/types";
+import type { Team } from "@/app/teams/_utils/types";
 import styles from "./page.module.sass";
 
 interface DynamicKey {

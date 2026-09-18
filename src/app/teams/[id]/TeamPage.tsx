@@ -1,16 +1,16 @@
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { database } from "@/app/_firebase/config";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
 import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "../_components/FixtureList";
-import type { Team, Teams } from "@/app/teams/types";
+import { useUserTeams } from "@/app/teams/_utils/useUserTeams";
+import type { Team } from "@/app/teams/_utils/types";
 
 export default function TeamDetail({ id }: { readonly id: string }) {
-  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
+  const [userTeams, setUserTeams] = useUserTeams();
   const cachedTeam = userTeams.find((t) => id === t.id);
   const [team, setTeam] = useState<Team | undefined>(cachedTeam);
   const [justAdded, setJustAdded] = useState<boolean>(false);

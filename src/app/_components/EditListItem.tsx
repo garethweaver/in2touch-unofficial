@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 import { motion } from "framer-motion";
 import { useLocalStorage } from "usehooks-ts";
-import { useUserSettings } from "@/app/settings/useUserSettings";
+import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
 import styles from "./EditListItem.module.sass";
 
 export default function EditListItem({

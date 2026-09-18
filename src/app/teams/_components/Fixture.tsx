@@ -3,7 +3,7 @@ import Link from "next/link";
 import Icon from "@/app/_components/Icon";
 import Location from "./Location";
 import Time from "@/app/_components/Time";
-import type { Fixture } from "../types";
+import type { Fixture } from "../_utils/types";
 import styles from "./Fixture.module.sass";
 
 function getResultClassName(arr: string[]) {

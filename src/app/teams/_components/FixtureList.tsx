@@ -1,6 +1,6 @@
 import Icon from "@/app/_components/Icon";
 import Fixture from "./Fixture";
-import type { Fixture as FixtureType } from "../types";
+import type { Fixture as FixtureType } from "../_utils/types";
 
 function getFixtures(fixtures: FixtureType[], isPast?: boolean) {
   return fixtures.map((fixture, i) => {

@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { deleteCookie } from "cookies-next";
-import { defaultUserSettings } from "@/app/settings/types";
-import { useUserSettings } from "@/app/settings/useUserSettings";
+import { defaultUserSettings } from "@/app/settings/_utils/types";
+import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
 import Button from "@/app/_components/Button";
 
 export default function ClearCacheButton() {

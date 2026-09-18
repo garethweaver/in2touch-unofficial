@@ -1,10 +1,12 @@
-import { Team, Teams, TeamsBasic } from "@/app/teams/types";
-import { League, Leagues } from "@/app/leagues/types";
+import { Team, TeamsBasic } from "@/app/teams/_utils/types";
+import { League, Leagues } from "@/app/leagues/_utils/types";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { ref, onValue, get } from "firebase/database";
 import { database } from "@/app/_firebase/config";
 import { FbCache } from "@/app/_firebase/types";
 import { useLocalStorage } from "usehooks-ts";
+import { useUserTeams } from "@/app/teams/_utils/useUserTeams";
+import { useUserLeagues } from "@/app/leagues/_utils/useUserLeagues";
 
 interface SortItem {
   nameLowercased: string;
@@ -52,11 +54,8 @@ export const useCompareAndUpateCache = (
 ) => {
   const [, , removeAllTeams] = useLocalStorage<TeamsBasic>("allTeams", []);
   const [, , removeAllLeagues] = useLocalStorage<Leagues>("allLeagues", []);
-  const [userTeams, setUserTeams] = useLocalStorage<Teams>("userTeams", []);
-  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
-    "userLeagues",
-    [],
-  );
+  const [userTeams, setUserTeams] = useUserTeams();
+  const [userLeagues, setUserLeagues] = useUserLeagues();
   const [fbCache, setFbCache] = useLocalStorage<FbCache | {}>("fbCache", {});
   const cacheRef = useRef<FbCache | {}>(fbCache);
 

@@ -4,8 +4,8 @@ import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
 import ButtonToggle from "@/app/_components/ButtonToggle";
 import FixtureNext from "./FixtureNext";
-import { useUserSettings } from "@/app/settings/useUserSettings";
-import type { Team } from "../types";
+import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
+import type { Team } from "../_utils/types";
 
 export default function Team({ data }: { readonly data: Team }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);

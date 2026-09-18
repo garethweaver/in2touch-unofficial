@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useCompareAndUpateCache } from "@/app/_helpers/helpers";
 import Header from "@/app/_components/Header";
-import { useUserSettings } from "@/app/settings/useUserSettings";
+import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
 import styles from "./ThemeWrapper.module.sass";
 
 export default function ThemeWrapper({

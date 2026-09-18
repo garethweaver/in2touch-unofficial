@@ -1,5 +1,5 @@
 "use client";
-import { Fixture } from "../types";
+import { Fixture } from "../_utils/types";
 import Time from "@/app/_components/Time";
 import Location from "./Location";
 import styles from "./FixtureNext.module.sass";

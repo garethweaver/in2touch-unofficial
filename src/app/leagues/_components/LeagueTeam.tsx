@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { LeagueTeam } from "../types";
+import type { LeagueTeam } from "../_utils/types";
 import styles from "./LeagueTeam.module.sass";
 
 export default function LeagueTeam({ data }: { readonly data: LeagueTeam }) {

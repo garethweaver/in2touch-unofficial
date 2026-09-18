@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { League } from "../types";
+import { League } from "../_utils/types";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
