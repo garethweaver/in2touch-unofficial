@@ -2,7 +2,8 @@
 import { useLocalStorage } from "usehooks-ts";
 import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
-import { UserSettings, defaultUserSettings } from "./types";
+import { UserSettings } from "./types";
+import { useUserSettings } from "./useUserSettings";
 import ThemeSelector from "./_components/ThemeSelector";
 import TimeFormatSelector, {
   TimeFormat,
@@ -15,11 +16,7 @@ const getDate = (dateString?: number) =>
   dateString && new Date(dateString).toString();
 
 export default function Page() {
-  const [settings, setSettings] = useLocalStorage<UserSettings>(
-    "userSettings",
-    defaultUserSettings,
-    { initializeWithValue: false },
-  );
+  const [userSettings, updateUserSettings] = useUserSettings();
 
   const [fbCache] = useLocalStorage<FbCache | { updatedAt: undefined }>(
     "fbCache",
@@ -29,13 +26,13 @@ export default function Page() {
     { initializeWithValue: false },
   );
 
-  const updateSetting = <K extends keyof typeof settings>(
+  const updateSetting = <K extends keyof UserSettings>(
     key: K,
-    value: (typeof settings)[K],
+    value: UserSettings[K],
   ) => {
     const expires = new Date(Date.now() + 86400 * 1000 * 365 * 5);
     setCookie(key, value, { expires });
-    setSettings({ ...settings, [key]: value });
+    updateUserSettings({ [key]: value });
   };
 
   const setTheme = (idx: number) => updateSetting("theme", idx);
@@ -80,14 +77,14 @@ export default function Page() {
       <section>
         <h2>Theme</h2>
         <ThemeSelector
-          selectedTheme={settings.theme}
+          selectedTheme={userSettings.theme}
           onThemeChange={setTheme}
         />
       </section>
       <section>
         <h2>Time format</h2>
         <TimeFormatSelector
-          selectedFormat={settings.timeFormat}
+          selectedFormat={userSettings.timeFormat}
           onFormatChange={setTimeFormat}
         />
       </section>

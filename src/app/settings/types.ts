@@ -7,7 +7,7 @@ export interface TeamDisplaySettings {
 export interface UserSettings {
   theme: number;
   timeFormat: TimeFormat;
-  teamDisplaySettings: Record<string, TeamDisplaySettings>;
+  teamDisplaySettings?: Record<string, TeamDisplaySettings>;
 }
 
 export const defaultUserSettings: UserSettings = {

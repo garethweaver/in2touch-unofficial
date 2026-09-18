@@ -1,17 +1,13 @@
 "use client";
 import { useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
 import { deleteCookie } from "cookies-next";
-import { UserSettings, defaultUserSettings } from "@/app/settings/types";
+import { defaultUserSettings } from "@/app/settings/types";
+import { useUserSettings } from "@/app/settings/useUserSettings";
 import Button from "@/app/_components/Button";
 
 export default function ClearCacheButton() {
   const [cleared, setCleared] = useState<boolean>(false);
-  const [, setSettings] = useLocalStorage<UserSettings>(
-    "userSettings",
-    defaultUserSettings,
-    { initializeWithValue: false },
-  );
+  const [, updateUserSettings] = useUserSettings();
 
   const handleClearCache = () => {
     setCleared(true);
@@ -19,7 +15,7 @@ export default function ClearCacheButton() {
     localStorage.removeItem("userLeagues");
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
-    setSettings(defaultUserSettings);
+    updateUserSettings(defaultUserSettings);
     deleteCookie("theme");
     deleteCookie("timeFormat");
     setTimeout(() => {

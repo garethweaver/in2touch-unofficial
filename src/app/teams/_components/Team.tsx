@@ -1,23 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useLocalStorage } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
 import ButtonToggle from "@/app/_components/ButtonToggle";
 import FixtureNext from "./FixtureNext";
-import { UserSettings, defaultUserSettings } from "@/app/settings/types";
+import { useUserSettings } from "@/app/settings/useUserSettings";
 import type { Team } from "../types";
 
 export default function Team({ data }: { readonly data: Team }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [userSettings] = useLocalStorage<UserSettings>(
-    "userSettings",
-    defaultUserSettings,
-    { initializeWithValue: false },
-  );
+  const [userSettings] = useUserSettings();
 
-  const isSpaced =
-    userSettings?.teamDisplaySettings?.[data.id]?.spaced ?? false;
+  const isSpaced = userSettings.teamDisplaySettings?.[data.id]?.spaced ?? false;
 
   return (
     <div className={`util-card ${isSpaced ? "util-card--spaced" : ""}`}>
