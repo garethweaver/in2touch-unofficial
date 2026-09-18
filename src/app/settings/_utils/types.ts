@@ -1,4 +1,4 @@
-import { TimeFormat } from "./_components/TimeFormatSelector";
+import { TimeFormat } from "../_components/TimeFormatSelector";
 
 export interface TeamDisplaySettings {
   spaced?: boolean;
