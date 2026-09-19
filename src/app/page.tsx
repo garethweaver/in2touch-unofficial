@@ -1,12 +1,13 @@
 "use client";
 import Icon from "@/app/_components/Icon";
 import Team from "@/app/teams/_components/Team";
-import { useUserTeams } from "@/app/teams/_utils/useUserTeams";
 import ButtonNav, { type Href } from "@/app/_components/ButtonNav";
 import LeagueBasic from "@/app/leagues/_components/LeagueBasic";
-import { useUserLeagues } from "@/app/leagues/_utils/useUserLeagues";
 import styles from "./page.module.sass";
 import Link from "next/link";
+import { useLocalStorage } from "usehooks-ts";
+import { Teams } from "./teams/_utils/types";
+import { Leagues } from "./leagues/_utils/types";
 
 const links: Href[] = [
   {
@@ -22,8 +23,12 @@ const links: Href[] = [
 ];
 
 export default function Page() {
-  const [userTeams] = useUserTeams();
-  const [userLeagues] = useUserLeagues();
+  const [userTeams] = useLocalStorage<Teams>("userTeams", [], {
+    initializeWithValue: false,
+  });
+  const [userLeagues] = useLocalStorage<Leagues>("userLeagues", [], {
+    initializeWithValue: false,
+  });
 
   return (
     <main>

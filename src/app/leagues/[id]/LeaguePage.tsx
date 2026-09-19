@@ -6,11 +6,14 @@ import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import ButtonNav from "@/app/_components/ButtonNav";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
-import { useUserLeagues } from "@/app/leagues/_utils/useUserLeagues";
-import type { League } from "@/app/leagues/_utils/types";
+import type { League, Leagues } from "@/app/leagues/_utils/types";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function LeagueDetail({ id }: { readonly id: string }) {
-  const [userLeagues, setUserLeagues] = useUserLeagues();
+  const [userLeagues, setUserLeagues] = useLocalStorage<Leagues>(
+    "userLeagues",
+    [],
+  );
   const cachedLeague = userLeagues.find((l) => id === l.id);
   const [league, setLeague] = useState<League | undefined>(cachedLeague);
   const [justAdded, setJustAdded] = useState<boolean>(false);
