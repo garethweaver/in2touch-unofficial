@@ -9,6 +9,7 @@ const APP = process.env.NEXT_PUBLIC_APPNAME!.toLocaleLowerCase();
 
 export const viewport: Viewport = {
   initialScale: 1,
+  themeColor: "#000000",
   width: "device-width",
 };
 
