@@ -45,10 +45,10 @@ export const league = (overrides: Partial<League> = {}): League => ({
     {
       id: "team-1",
       name: "Touch Me Not",
-      played: "5",
+      played: 5,
       won: 4,
-      drawn: "0",
-      lost: "1",
+      drawn: 0,
+      lost: 1,
       pointsFor: 30,
       pointsAgainst: 12,
       points: 13,

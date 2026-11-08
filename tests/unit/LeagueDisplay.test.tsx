@@ -9,10 +9,10 @@ import { league } from "./fixtures";
 const row = (overrides: Partial<LeagueTeamType> = {}): LeagueTeamType => ({
   id: "t1",
   name: "Touch Me Not",
-  played: "4",
+  played: 4,
   won: 3,
-  drawn: "0",
-  lost: "1",
+  drawn: 0,
+  lost: 1,
   pointsFor: 24,
   pointsAgainst: 10,
   points: 10,
