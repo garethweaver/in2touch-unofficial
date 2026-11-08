@@ -14,7 +14,6 @@ export interface TeamBasic {
 }
 
 export interface BaseFixture {
-  date: string;
   day: string;
   time: string;
   timestamp: number;
