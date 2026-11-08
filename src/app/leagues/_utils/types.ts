@@ -11,16 +11,16 @@ export interface League {
 }
 
 export interface LeagueTeam {
-  drawn: string;
+  drawn: number;
   id: string;
-  lost: string;
+  lost: number;
   name: string;
-  played: string;
+  played: number;
   points: number;
   pointsAgainst: number;
   pointsBonus?: number;
   pointsDifference?: number;
   pointsFor: number;
-  profileUrl: string;
+  profileUrl?: string;
   won: number;
 }
