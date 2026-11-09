@@ -4,7 +4,6 @@ import type { League } from "@/app/leagues/_utils/types";
 const DAY = 86_400_000;
 
 export const match = (overrides: Partial<Match> = {}): Match => ({
-  date: "2026-11-12",
   day: "Thursday 12 November",
   time: "19:30",
   timestamp: Date.now() + 3 * DAY,
@@ -18,7 +17,6 @@ export const match = (overrides: Partial<Match> = {}): Match => ({
 });
 
 export const bye = (overrides: Partial<Bye> = {}): Bye => ({
-  date: "2026-11-19",
   day: "Thursday 19 November",
   time: "",
   timestamp: Date.now() + 10 * DAY,
