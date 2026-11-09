@@ -3,7 +3,7 @@ export default function Location({
   leagueName,
 }: {
   readonly pitch: string;
-  readonly leagueName: string;
+  readonly leagueName?: string | null;
 }) {
   return (
     <p>

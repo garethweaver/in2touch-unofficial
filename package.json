@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "firebase emulators:exec --config tests/e2e/firebase.json --project demo-in2touch --only database \"playwright test\""
   },
   "engines": {
-    "node": "22"
+    "node": "24.x"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -23,14 +26,24 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
-    "@types/node": "^25",
+    "@playwright/test": "^1.63.0",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-no-ssr": "^1.1.8",
+    "@vitejs/plugin-react": "^6.2.1",
     "eslint": "10.2.1",
     "eslint-config-next": "16.2.4",
+    "firebase-tools": "^15.35.0",
+    "jsdom": "^31.0.0",
     "sass": "^1.99.0",
-    "typescript": "^6"
+    "typescript": "^6",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -25,7 +25,8 @@ export interface Bye extends BaseFixture {
 }
 
 export interface Match extends BaseFixture {
-  leagueName: string;
+  // Scrapers send null when unknown; Firebase drops nulls, so it can arrive missing
+  leagueName?: string | null;
   pitch: string;
   result: string;
   vs: string;
