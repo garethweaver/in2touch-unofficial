@@ -36,6 +36,10 @@ describe("Location", () => {
     expect(container).toHaveTextContent(/^Field 2$/);
     rerender(<Location pitch="" leagueName="Mixed" />);
     expect(container).toHaveTextContent(/^Mixed…$/);
+    rerender(<Location pitch="Field 2" leagueName={null} />);
+    expect(container).toHaveTextContent(/^Field 2$/);
+    rerender(<Location pitch="Field 2" />);
+    expect(container).toHaveTextContent(/^Field 2$/);
   });
 });
 
