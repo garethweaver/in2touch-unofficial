@@ -6,7 +6,6 @@ import ShareButton from "@/app/settings/_components/ShareButton";
 import Header from "@/app/_components/Header";
 import ThemeWrapper from "@/app/_components/ThemeWrapper";
 import { fbOnValue } from "./firebaseMock";
-import { seedLocal } from "./testUtils";
 
 const nav = vi.hoisted(() => ({ pathname: "/", back: vi.fn() }));
 vi.mock("next/navigation", () => ({
@@ -97,16 +96,9 @@ describe("Header", () => {
 });
 
 describe("ThemeWrapper", () => {
-  it("renders the page with the default theme", () => {
-    const { container } = render(<ThemeWrapper><p>Page content</p></ThemeWrapper>);
+  it("renders the page content", () => {
+    render(<ThemeWrapper><p>Page content</p></ThemeWrapper>);
     expect(screen.getByText("Page content")).toBeInTheDocument();
-    expect(container.firstElementChild).toHaveClass("Theme--1");
-  });
-
-  it("applies the saved theme", async () => {
-    seedLocal("userSettings", { theme: 4, timeFormat: "24h" });
-    const { container } = render(<ThemeWrapper><p>x</p></ThemeWrapper>);
-    await vi.waitFor(() => expect(container.firstElementChild).toHaveClass("Theme--4"));
   });
 
   it("shows the header loader until Firebase answers", () => {

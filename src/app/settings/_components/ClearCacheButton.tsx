@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { deleteCookie } from "cookies-next";
 import { defaultUserSettings } from "@/app/settings/_utils/types";
 import { useUserSettings } from "@/app/settings/_utils/useUserSettings";
+import { applyTheme } from "@/app/settings/_utils/applyTheme";
 import Button from "@/app/_components/Button";
 
 export default function ClearCacheButton() {
@@ -16,8 +16,7 @@ export default function ClearCacheButton() {
     localStorage.removeItem("allTeams");
     localStorage.removeItem("allLeagues");
     updateUserSettings(defaultUserSettings);
-    deleteCookie("theme");
-    deleteCookie("timeFormat");
+    applyTheme(defaultUserSettings.theme);
     setTimeout(() => {
       setCleared(false);
     }, 2000);
