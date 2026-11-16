@@ -2,6 +2,7 @@ import type { Viewport, Metadata } from "next";
 import { roboto, inconsolata } from "./fonts";
 import ThemeWrapper from "@/app/_components/ThemeWrapper";
 import { THEME_SCRIPT } from "@/app/settings/_utils/applyTheme";
+import { splashScreens } from "@/app/_helpers/splashScreens";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.sass";
 
@@ -16,6 +17,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_APPNAME} Unofficial`,
   description: `Find and follow teams to show gametimes and league tables from the ${process.env.NEXT_PUBLIC_APPNAME} website`,
+  appleWebApp: {
+    capable: true,
+    title: process.env.NEXT_PUBLIC_APPNAME,
+    statusBarStyle: "black",
+    startupImage: splashScreens(APP),
+  },
   icons: {
     icon: `/${APP}/icon-512.svg`,
     apple: `/${APP}/apple-touch-icon.png`,

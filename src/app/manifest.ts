@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: `Shows game times and league tables from the ${process.env.NEXT_PUBLIC_APPNAME} website`,
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
+    background_color: "#000000",
     theme_color: "#000000",
     prefer_related_applications: false,
     icons: [
@@ -21,12 +21,12 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         purpose: "maskable",
         src: `/${APP}/icon-512-maskable.svg`,
-        sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
+        sizes: "any",
         type: "image/svg+xml",
       },
       {
         src: `/${APP}/icon-512.svg`,
-        sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
+        sizes: "any",
         type: "image/svg+xml",
       },
       {
