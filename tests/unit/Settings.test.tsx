@@ -4,20 +4,21 @@ import userEvent from "@testing-library/user-event";
 import SettingsPage from "@/app/settings/page";
 import ClearCacheButton from "@/app/settings/_components/ClearCacheButton";
 import { defaultUserSettings } from "@/app/settings/_utils/types";
-import { cookies, readLocal, seedLocal } from "./testUtils";
+import { readLocal, seedLocal } from "./testUtils";
 
 afterEach(() => {
   vi.useRealTimers();
 });
 
 describe("Settings page", () => {
-  it("saves the theme to a cookie and localStorage without losing other settings", async () => {
+  it("applies the theme to <html> and saves it without losing other settings", async () => {
     seedLocal("userSettings", { theme: 1, timeFormat: "12h", teamDisplaySettings: { a: { spaced: true } } });
     render(<SettingsPage />);
 
     await userEvent.click(screen.getByRole("button", { name: "Midnight" }));
 
-    expect(cookies().theme).toBe("2");
+    expect(document.documentElement).toHaveClass("Theme--2");
+    expect(document.documentElement).not.toHaveClass("Theme--1");
     expect(readLocal("userSettings")).toEqual({
       theme: 2,
       timeFormat: "12h",
@@ -29,7 +30,6 @@ describe("Settings page", () => {
     render(<SettingsPage />);
     await userEvent.click(screen.getByRole("button", { name: /12-hour/ }));
 
-    expect(cookies().timeFormat).toBe("12h");
     expect(readLocal("userSettings").timeFormat).toBe("12h");
   });
 
@@ -68,11 +68,10 @@ describe("ClearCacheButton", () => {
     seedLocal("fbCache", { updatedAt: 1 });
     seedLocal("somethingElse", "keep me");
     seedLocal("userSettings", { theme: 4, timeFormat: "12h", teamDisplaySettings: { a: { spaced: true } } });
-    document.cookie = "theme=4; path=/";
-    document.cookie = "timeFormat=12h; path=/";
+    document.documentElement.classList.add("Theme--4");
   }
 
-  it("removes saved teams, leagues and lists, and resets settings and cookies", async () => {
+  it("removes saved teams, leagues and lists, and resets settings and theme", async () => {
     seedEverything();
     render(<ClearCacheButton />);
 
@@ -82,8 +81,8 @@ describe("ClearCacheButton", () => {
       expect(localStorage.getItem(key), key).toBeNull();
     }
     expect(readLocal("userSettings")).toEqual(defaultUserSettings);
-    expect(cookies()).not.toHaveProperty("theme");
-    expect(cookies()).not.toHaveProperty("timeFormat");
+    expect(document.documentElement).toHaveClass("Theme--1");
+    expect(document.documentElement).not.toHaveClass("Theme--4");
   });
 
   it("leaves fbCache and unrelated keys alone", async () => {

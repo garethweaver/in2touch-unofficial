@@ -1,6 +1,6 @@
 {
   "name": "in2touch-unofficial",
-  "version": "4.3.6",
+  "version": "4.3.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "cookies-next": "^6.1.1",
     "feather-icons-react": "^1.0.0",
     "firebase": "^12.12.1",
     "framer-motion": "^12.38.0",

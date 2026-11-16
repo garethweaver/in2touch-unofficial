@@ -1,9 +1,9 @@
 "use client";
 import { useLocalStorage } from "usehooks-ts";
-import { setCookie, deleteCookie } from "cookies-next";
 import { FbCache } from "@/app/_firebase/types";
 import { UserSettings } from "./_utils/types";
 import { useUserSettings } from "./_utils/useUserSettings";
+import { applyTheme } from "./_utils/applyTheme";
 import ThemeSelector from "./_components/ThemeSelector";
 import TimeFormatSelector, {
   TimeFormat,
@@ -30,12 +30,13 @@ export default function Page() {
     key: K,
     value: UserSettings[K],
   ) => {
-    const expires = new Date(Date.now() + 86400 * 1000 * 365 * 5);
-    setCookie(key, value, { expires });
     updateUserSettings({ [key]: value });
   };
 
-  const setTheme = (idx: number) => updateSetting("theme", idx);
+  const setTheme = (idx: number) => {
+    applyTheme(idx);
+    updateSetting("theme", idx);
+  };
   const setTimeFormat = (format: TimeFormat) =>
     updateSetting("timeFormat", format);
 
