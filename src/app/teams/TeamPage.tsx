@@ -5,7 +5,7 @@ import { database } from "@/app/_firebase/config";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
 import ButtonNav from "@/app/_components/ButtonNav";
-import FixtureList from "../_components/FixtureList";
+import FixtureList from "./_components/FixtureList";
 import type { Team, Teams } from "@/app/teams/_utils/types";
 import { useLocalStorage } from "usehooks-ts";
 

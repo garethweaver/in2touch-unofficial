@@ -78,7 +78,7 @@ describe("Header", () => {
   });
 
   it("shows Home and Back on other pages", async () => {
-    nav.pathname = "/teams/abc";
+    nav.pathname = "/teams";
     render(<Header loading={false} />);
     expect(screen.getByRole("link", { name: /home/i })).toHaveAttribute("href", "/");
 

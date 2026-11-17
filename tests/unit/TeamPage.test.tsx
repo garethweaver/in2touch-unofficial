@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import TeamDetail from "@/app/teams/[id]/TeamPage";
+import TeamDetail from "@/app/teams/TeamPage";
 import { setFakeDb, fbGet } from "./firebaseMock";
 import { team, match } from "./fixtures";
 

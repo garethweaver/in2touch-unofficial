@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { League } from "../_utils/types";
 import Link from "next/link";
+import { leagueHref } from "@/app/_helpers/routes";
 import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
 import ButtonToggle from "@/app/_components/ButtonToggle";
@@ -23,7 +24,7 @@ export default function LeagueBasic({ data }: { readonly data: League }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   return (
     <div className={`${styles.root} util-card`}>
-      <Link href={`/leagues/${data.id}`}>
+      <Link href={leagueHref(data.id)}>
         <div className="util-flex__header">
           <span>{parseName(data.name)}</span>
           <ButtonToggle callback={setIsEdit} value={isEdit} />

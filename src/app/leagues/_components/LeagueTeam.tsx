@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { teamHref } from "@/app/_helpers/routes";
 import type { LeagueTeam } from "../_utils/types";
 import styles from "./LeagueTeam.module.sass";
 
 export default function LeagueTeam({ data }: { readonly data: LeagueTeam }) {
   return (
     <div className="util-card">
-      <Link href={`/teams/${data.id}`}>
+      <Link href={teamHref(data.id)}>
         <h3 className={styles.name}>{data.name}</h3>
         <div className={styles.results}>
           <div>{data.played}</div>

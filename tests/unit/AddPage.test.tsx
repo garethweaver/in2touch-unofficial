@@ -30,7 +30,7 @@ describe("Add page", () => {
 
     const links = await screen.findAllByRole("link");
     expect(links.map((l) => l.textContent)).toEqual(["Alpha", "Bravo", "Charlie"]);
-    expect(links[0]).toHaveAttribute("href", "/teams/a");
+    expect(links[0]).toHaveAttribute("href", "/teams?id=a");
     expect(fbGet).toHaveBeenCalledWith({ path: "teams" });
     expect(JSON.parse(localStorage.getItem("allTeams")!)).toHaveLength(3);
   });
@@ -71,7 +71,7 @@ describe("Add page", () => {
     await renderAdd("leagues");
     expect(await screen.findByRole("link", { name: "Monday Men" })).toHaveAttribute(
       "href",
-      "/leagues/x",
+      "/leagues?id=x",
     );
   });
 });

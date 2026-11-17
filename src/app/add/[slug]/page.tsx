@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Loader from "@/app/_components/Loader";
 import { database } from "@/app/_firebase/config";
 import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
+import { leagueHref, teamHref } from "@/app/_helpers/routes";
 import Icon from "@/app/_components/Icon";
 import type { League } from "@/app/leagues/_utils/types";
 import type { Team } from "@/app/teams/_utils/types";
@@ -92,7 +93,9 @@ export default function Page({
                     key={item.id}
                     className={`${isAdded ? styles.itemAdded : ""}`}
                   >
-                    <Link href={`/${keys.db}/${item.id}`}>
+                    <Link href={
+                        slug === "leagues" ? leagueHref(item.id) : teamHref(item.id)
+                      }>
                       {item.name}
                       {isAdded && <Icon name="check" />}
                     </Link>
