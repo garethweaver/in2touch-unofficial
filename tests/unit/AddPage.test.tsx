@@ -30,7 +30,7 @@ describe("Add page", () => {
 
     const links = await screen.findAllByRole("link");
     expect(links.map((l) => l.textContent)).toEqual(["Alpha", "Bravo", "Charlie"]);
-    expect(links[0]).toHaveAttribute("href", "/teams/a");
+    expect(links[0]).toHaveAttribute("href", "/teams?id=a");
     expect(fbGet).toHaveBeenCalledWith({ path: "teams" });
     expect(JSON.parse(localStorage.getItem("allTeams")!)).toHaveLength(3);
   });
@@ -71,7 +71,21 @@ describe("Add page", () => {
     await renderAdd("leagues");
     expect(await screen.findByRole("link", { name: "Monday Men" })).toHaveAttribute(
       "href",
-      "/leagues/x",
+      "/leagues?id=x",
     );
+  });
+});
+
+describe("Add page errors", () => {
+  it("offers a retry when the list can't be loaded", async () => {
+    const { failReadsUnder, allowReadsUnder } = await import("./firebaseMock");
+    setFakeDb({ teams });
+    failReadsUnder("teams");
+    await renderAdd("teams");
+    expect(await screen.findByText("Couldn't load the list of teams.")).toBeInTheDocument();
+
+    allowReadsUnder("teams");
+    await userEvent.click(screen.getByRole("button", { name: /try again/i }));
+    expect(await screen.findByRole("link", { name: "Alpha" })).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 import type { Viewport, Metadata } from "next";
 import { roboto, inconsolata } from "./fonts";
 import ThemeWrapper from "@/app/_components/ThemeWrapper";
+import ServiceWorker from "@/app/_components/ServiceWorker";
 import { THEME_SCRIPT } from "@/app/settings/_utils/applyTheme";
 import { splashScreens } from "@/app/_helpers/splashScreens";
 import { Analytics } from "@vercel/analytics/react";
@@ -53,6 +54,7 @@ export default function Layout({
       <body className={`${roboto.variable} ${inconsolata.variable}`}>
         <ThemeWrapper>{children}</ThemeWrapper>
         <Analytics />
+        <ServiceWorker />
       </body>
     </html>
   );

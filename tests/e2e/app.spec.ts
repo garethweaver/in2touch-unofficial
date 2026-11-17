@@ -52,7 +52,7 @@ test("follow a league", async ({ page }) => {
 });
 
 test("homescreen picks up database updates live", async ({ page }) => {
-  await page.goto("/teams/touch-me-not");
+  await page.goto("/teams?id=touch-me-not");
   await page.getByRole("button", { name: "Add team to homescreen" }).click();
   await page.goto("/");
   await expect(homeTeamCard(page, "Touch Me Not")).toBeVisible();
@@ -65,7 +65,7 @@ test("homescreen picks up database updates live", async ({ page }) => {
 });
 
 test("settings persist and clearing the cache resets the app", async ({ page }) => {
-  await page.goto("/teams/touch-me-not");
+  await page.goto("/teams?id=touch-me-not");
   await page.getByRole("button", { name: "Add team to homescreen" }).click();
 
   await page.goto("/settings");

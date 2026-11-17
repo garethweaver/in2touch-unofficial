@@ -54,7 +54,7 @@ describe("LeagueTeam row", () => {
   it("renders stats in header order and links to the team", () => {
     const { container } = render(<LeagueTeam data={row({ pointsBonus: 0, pointsDifference: 14 })} />);
     expect(cells(container)).toEqual(["4", "3", "0", "1", "24", "10", "0", "+14", "10"]);
-    expect(screen.getByRole("link")).toHaveAttribute("href", "/teams/t1");
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/teams?id=t1");
   });
 
   it.each([
@@ -90,7 +90,7 @@ describe("LeagueBasic name parsing", () => {
     render(<LeagueBasic data={league()} />);
     const items = within(screen.getByRole("list")).getAllByRole("listitem");
     expect(items.map((li) => li.textContent)).toEqual(["1Touch Me Not13"]);
-    expect(screen.getByRole("link")).toHaveAttribute("href", "/leagues/league-1");
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/leagues?id=league-1");
   });
 
   it("says when there is no table yet", () => {

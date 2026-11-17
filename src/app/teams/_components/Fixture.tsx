@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { teamHref } from "@/app/_helpers/routes";
 import Icon from "@/app/_components/Icon";
 import Location from "./Location";
 import Time from "@/app/_components/Time";
@@ -46,7 +47,7 @@ export default function Fixture({
   }
 
   return (
-    <Link className={styles.root} href={`/teams/${data.vsId}`}>
+    <Link className={styles.root} href={teamHref(data.vsId)}>
       {(data.round || isPast) && (
         <h6 className="util-heading--sm">
           {data.round && `${data.round} `}

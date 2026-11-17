@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import { teamHref } from "@/app/_helpers/routes";
 import { AnimatePresence } from "framer-motion";
 import EditListItem from "@/app/_components/EditListItem";
 import ButtonToggle from "@/app/_components/ButtonToggle";
@@ -15,7 +16,7 @@ export default function Team({ data }: { readonly data: Team }) {
 
   return (
     <div className={`util-card ${isSpaced ? "util-card--spaced" : ""}`}>
-      <Link href={`/teams/${data.id}`}>
+      <Link href={teamHref(data.id)}>
         <div className="util-flex__header">
           <h3 className="util-flex__heading">{data.name}</h3>
           <ButtonToggle callback={setIsEdit} value={isEdit} />
