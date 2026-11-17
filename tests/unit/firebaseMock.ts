@@ -6,6 +6,7 @@
  *
  *   setFakeDb({ "team-data": { abc: team } })   // seed data
  *   updateFakeDb("config", { teamDataHash: "2" }) // change data + fire onValue listeners
+ *   setConnected(false)                        // flip Firebase's .info/connected
  *   fbGet / fbOnValue                          // vi.fn spies for assertions
  */
 import { vi } from "vitest";
@@ -13,15 +14,23 @@ import { vi } from "vitest";
 type Listener = { path: string; cb: (snap: FakeSnapshot) => void };
 type FakeSnapshot = { exists: () => boolean; val: () => any };
 
-const state: { db: Record<string, any>; listeners: Listener[]; failPaths: Set<string> } = {
+const state: {
+  db: Record<string, any>;
+  listeners: Listener[];
+  failPaths: Set<string>;
+  connected: boolean;
+} = {
   db: {},
   listeners: [],
   failPaths: new Set(),
+  connected: true,
 };
 
 const clone = <T>(v: T): T => (v === undefined ? v : structuredClone(v));
 const lookup = (path: string) =>
-  path.split("/").filter(Boolean).reduce<any>((o, k) => o?.[k], state.db);
+  path === ".info/connected"
+    ? state.connected
+    : path.split("/").filter(Boolean).reduce<any>((o, k) => o?.[k], state.db);
 const snapshot = (path: string): FakeSnapshot => {
   const v = clone(lookup(path));
   return { exists: () => v !== undefined && v !== null, val: () => v ?? null };
@@ -72,10 +81,19 @@ export function failReadsUnder(path: string) {
   state.failPaths.add(path);
 }
 
+/** Simulate Firebase connecting/disconnecting (.info/connected). */
+export function setConnected(connected: boolean) {
+  state.connected = connected;
+  state.listeners
+    .filter((l) => l.path === ".info/connected")
+    .forEach((l) => l.cb(snapshot(l.path)));
+}
+
 export function resetFakeDb() {
   state.db = {};
   state.listeners = [];
   state.failPaths.clear();
+  state.connected = true;
   fbGet.mockClear();
   fbOnValue.mockClear();
 }
