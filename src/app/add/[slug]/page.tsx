@@ -1,11 +1,11 @@
 "use client";
-import { get, ref } from "firebase/database";
-import { use, useEffect, useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
 import Loader from "@/app/_components/Loader";
-import { database } from "@/app/_firebase/config";
+import LoadError from "@/app/_components/LoadError";
+import { useFetchWhenOnline } from "@/app/_helpers/useFetchWhenOnline";
 import { sortNameLowerByAlpha } from "@/app/_helpers/helpers";
 import { leagueHref, teamHref } from "@/app/_helpers/routes";
 import Icon from "@/app/_components/Icon";
@@ -53,19 +53,16 @@ export default function Page({
     setQuery(e.target.value.toLowerCase());
   };
 
-  useEffect(() => {
-    // do not fetch if in local storage
-    if (cachedData) return;
-    // else fetch from databse
-    const dbRef = ref(database, keys.db);
-    get(dbRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data: List = Object.values(snapshot.val());
-        data.sort(sortNameLowerByAlpha);
-        setCachedData(data);
-      }
-    });
-  }, []);
+  // use the cached full list if we have one, else fetch it
+  const { status, retry } = useFetchWhenOnline<Record<string, Item>>(
+    keys.db,
+    !!cachedData,
+    (raw) => {
+      const data: List = Object.values(raw);
+      data.sort(sortNameLowerByAlpha);
+      setCachedData(data);
+    },
+  );
 
   return (
     <main>
@@ -104,8 +101,12 @@ export default function Page({
               })}
           </ul>
         </motion.div>
-      ) : (
+      ) : status === "loading" || status === "done" ? (
         <Loader type="center" />
+      ) : (
+        <div className="util-margin--t">
+          <LoadError status={status} subject={`the list of ${slug}`} onRetry={retry} />
+        </div>
       )}
     </main>
   );

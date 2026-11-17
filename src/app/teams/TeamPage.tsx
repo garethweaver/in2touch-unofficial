@@ -1,9 +1,9 @@
-import { get, ref } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { database } from "@/app/_firebase/config";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
+import LoadError from "@/app/_components/LoadError";
+import { useFetchWhenOnline } from "@/app/_helpers/useFetchWhenOnline";
 import ButtonNav from "@/app/_components/ButtonNav";
 import FixtureList from "./_components/FixtureList";
 import type { Team, Teams } from "@/app/teams/_utils/types";
@@ -20,21 +20,13 @@ export default function TeamDetail({ id }: { readonly id: string }) {
     setJustAdded(true);
   };
 
-  useEffect(() => {
-    // do not fetch if in local storage
-    if (cachedTeam) return;
-    // else fetch from databse
-    const teamRef = ref(database, `team-data/${id}`);
-    get(teamRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        // stop loader blink
-        setTimeout(() => {
-          setTeam(data);
-        }, 100);
-      }
-    });
-  }, []);
+  // saved teams come from local storage; anything else from the database
+  const { status, retry } = useFetchWhenOnline<Team>(
+    `team-data/${id}`,
+    !!cachedTeam,
+    // stop loader blink
+    (data) => setTimeout(() => setTeam(data), 100),
+  );
 
   return (
     <main>
@@ -76,8 +68,12 @@ export default function TeamDetail({ id }: { readonly id: string }) {
             />
           </div>
         </motion.div>
-      ) : (
+      ) : status === "loading" || status === "done" ? (
         <Loader type="center" />
+      ) : (
+        <div className="util-margin--t">
+          <LoadError status={status} subject="this team" onRetry={retry} />
+        </div>
       )}
     </main>
   );

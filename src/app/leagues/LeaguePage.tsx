@@ -1,11 +1,11 @@
-import { get, ref } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { database } from "@/app/_firebase/config";
 import LeagueTable from "@/app/leagues/_components/LeagueTable";
 import ButtonNav from "@/app/_components/ButtonNav";
 import Button from "@/app/_components/Button";
 import Loader from "@/app/_components/Loader";
+import LoadError from "@/app/_components/LoadError";
+import { useFetchWhenOnline } from "@/app/_helpers/useFetchWhenOnline";
 import type { League, Leagues } from "@/app/leagues/_utils/types";
 import { useLocalStorage } from "usehooks-ts";
 
@@ -23,20 +23,12 @@ export default function LeagueDetail({ id }: { readonly id: string }) {
     setJustAdded(true);
   };
 
-  useEffect(() => {
-    // do not fetch if in local storage
-    if (cachedLeague) return;
-    // else fetch from databse
-    const teamRef = ref(database, `leagues/${id}`);
-    get(teamRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        setTimeout(() => {
-          setLeague(data);
-        }, 100);
-      }
-    });
-  }, []);
+  // saved leagues come from local storage; anything else from the database
+  const { status, retry } = useFetchWhenOnline<League>(
+    `leagues/${id}`,
+    !!cachedLeague,
+    (data) => setTimeout(() => setLeague(data), 100),
+  );
 
   return (
     <main>
@@ -96,8 +88,12 @@ export default function LeagueDetail({ id }: { readonly id: string }) {
             />
           </div>
         </motion.div>
-      ) : (
+      ) : status === "loading" || status === "done" ? (
         <Loader type="center" />
+      ) : (
+        <div className="util-margin--t">
+          <LoadError status={status} subject="this league" onRetry={retry} />
+        </div>
       )}
     </main>
   );

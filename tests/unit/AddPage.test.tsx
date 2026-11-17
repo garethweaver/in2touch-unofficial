@@ -75,3 +75,17 @@ describe("Add page", () => {
     );
   });
 });
+
+describe("Add page errors", () => {
+  it("offers a retry when the list can't be loaded", async () => {
+    const { failReadsUnder, allowReadsUnder } = await import("./firebaseMock");
+    setFakeDb({ teams });
+    failReadsUnder("teams");
+    await renderAdd("teams");
+    expect(await screen.findByText("Couldn't load the list of teams.")).toBeInTheDocument();
+
+    allowReadsUnder("teams");
+    await userEvent.click(screen.getByRole("button", { name: /try again/i }));
+    expect(await screen.findByRole("link", { name: "Alpha" })).toBeInTheDocument();
+  });
+});

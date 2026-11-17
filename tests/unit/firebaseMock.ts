@@ -81,6 +81,11 @@ export function failReadsUnder(path: string) {
   state.failPaths.add(path);
 }
 
+/** Let reads under `path` succeed again. */
+export function allowReadsUnder(path: string) {
+  state.failPaths.delete(path);
+}
+
 /** Simulate Firebase connecting/disconnecting (.info/connected). */
 export function setConnected(connected: boolean) {
   state.connected = connected;
